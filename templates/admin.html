@@ -1,42 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <title>admin</title>
+    <title>SPOT THE GAME</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
 
 <body>
-<center>
-
+<h4>SPOT THE GAME</h4><br><br>
+    <div id="login" class="span3 well well-large offset4">
+        <center>
+        <h4></h4><br>
     <form action="/add_game" method="post">
-    <h2>Add Game</h2>
         <table>
             <tr>
-                <th><input type="file" name="pic" accept="image/*"></th>
-            </tr>
-
-            <tr>
-                <th>Eye pixel 1 :</th><th><input type="text" name="x1" size="5">  <input type="text" name="y1" size="5"></th>
+                <th>Add Image :&nbsp;&nbsp;&nbsp;</th><th><input type="file" name="pic" accept="image/*"></th>
             </tr>
             <tr>
-                <th>Eye pixel 2 :</th><th><input type="text" name="x2" size="5">  <input type="text" name="y2" size="5"></th>
+                <th>&nbsp;&nbsp;&nbsp;</th>
             </tr>
             <tr>
-                <th>Eye pixel 3 :</th><th><input type="text" name="x3" size="5"> <input type="text" name="y3" size="5"></th>
+                <th></th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Y</th>
             </tr>
             <tr>
-                <th>Eye pixel 4 :</th><th><input type="text" name="x4" size="5">  <input type="text" name="y4" size="5"></th>
+                <th>Eye 1 pixel :</th><th><input type="text" name="x1" size="10">  <input type="text" name="y1" size="10"></th>
             </tr>
             <tr>
-                <th>Ball pixel :</th><th><input type="text" name="x" size="5">  <input type="text" name="y" size="5"></th>
+                <th>Eye 2 pixel :</th><th><input type="text" name="x2" size="10">  <input type="text" name="y2" size="10"></th>
             </tr>
             <tr>
-                <th></th><th><input type="submit"></th>
+                <th>Eye 3 pixel :</th><th><input type="text" name="x3" size="10"> <input type="text" name="y3" size="10"></th>
+            </tr>
+            <tr>
+                <th>Eye 4 pixel :</th><th><input type="text" name="x4" size="10">  <input type="text" name="y4" size="10"></th>
+            </tr>
+            <tr>
+                <th>Ball&nbsp;&nbsp; pixel :</th><th><input type="text" name="x" size="10">  <input type="text" name="y" size="10"></th>
+            </tr>
+            <tr>
+                <th>&nbsp;&nbsp;&nbsp;</th>
+            </tr>
+            <tr>
+                <th></th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="-SUBMIT-"></th>
             </tr>
 
         </table>
     </form>
-</center>
+        </center>
+    </div>
 </body>
 </html>
