@@ -31,7 +31,7 @@ class Mdb:
         conn_str = 'mongodb://stbuser:stbpass@ds127531.mlab.com:27531/spottheball'
 
         client = MongoClient(conn_str)
-        self.db = client['games']
+        self.db = client['spottheball']
 
         print "[Mdb] connected to database :: ", self.db
 
