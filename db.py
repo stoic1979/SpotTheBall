@@ -26,9 +26,10 @@ class JSONEncoder(json.JSONEncoder):
 class Mdb:
 
     def __init__(self):
-        #conn_str = "mongodb://%s:%s@%s:%d/%s" \
-         #         % (DB_USER, DB_PASS, DB_HOST, DB_PORT, AUTH_DB_NAME)
-        conn_str = 'mongodb://stbuser:stbpass@ds127531.mlab.com:27531/spottheball'
+        # conn_str = "mongodb://%s:%s@%s:%d/%s" \
+        #           % (DB_USER, DB_PASS, DB_HOST, DB_PORT, AUTH_DB_NAME)
+        conn_str = 'mongodb://stbuser:stbpass@ds127531.' \
+                   'mlab.com:27531/spottheball'
 
         client = MongoClient(conn_str)
         self.db = client['spottheball']
@@ -73,4 +74,3 @@ if __name__ == "__main__":
     # quick test connecting to localdb
     mdb = Mdb()
     mdb.add_game('56', '65', '789', '56', '98', '123', '68', '57', '10', '11')
-    # mdb.retrieve_data('LuminoGuru Pvt. Ltd.')

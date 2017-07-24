@@ -1,5 +1,7 @@
-from flask import Flask, request, render_template
+import os
+from flask import Flask, request, render_template, redirect, send_from_directory
 import traceback
+from werkzeug.utils import  secure_filename
 from db import Mdb
 import json
 app = Flask(__name__)
@@ -9,6 +11,26 @@ mdb = Mdb()
 @app.route('/')
 def home():
     return 'Welcome to Spot The Ball'
+
+#########################################
+#              upload Image             #
+#########################################
+dir_path = os.path.dirname(os.path.realpath(__file__))
+file_data = '%s/%s' % (dir_path, 'uploads')
+
+UPLOAD_FOLDER = file_data
+print '', file_data
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+@app.route('/<filename>')
+def uploaded_file(filename):
+    print '', file_data
+    return send_from_directory(app.config['UPLOAD_FOLDER'],
+                               filename)
+
 
 @app.route('/admin')
 def admin():
