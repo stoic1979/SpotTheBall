@@ -26,13 +26,12 @@ class JSONEncoder(json.JSONEncoder):
 class Mdb:
 
     def __init__(self):
-        # conn_str = "mongodb://%s:%s@%s:%d/%s" \
-        #           % (DB_USER, DB_PASS, DB_HOST, DB_PORT, AUTH_DB_NAME)
-        conn_str = 'mongodb://stbuser:stbpass@ds127531.' \
-                   'mlab.com:27531/spottheball'
-
+        conn_str = "mongodb://%s:%s@%s:%d/%s" \
+                   % (DB_USER, DB_PASS, DB_HOST, DB_PORT, AUTH_DB_NAME)
+        # conn_str = 'mongodb://stbuser:stbpass@ds127531.' \
+          #         'mlab.com:27531/spottheball'
         client = MongoClient(conn_str)
-        self.db = client['spottheball']
+        self.db = client['games']
 
         print "[Mdb] connected to database :: ", self.db
 
@@ -40,17 +39,15 @@ class Mdb:
         try:
             rec = {
                 'pic': pic,
-                'x1': x1,
-                'y1': y1,
-                'x2': x2,
-                'y2': y2,
-                'x3': x3,
-                'y3': y3,
-                'x4': x4,
-                'y4': y4,
-                'x': x,
-                'y': y,
-
+                'eyes': [
+                    {'x': x1, 'y': y1},
+                    {'x': x2, 'y': y2},
+                    {'x': x3, 'y': y3},
+                    {'x': x4, 'y': y4}
+                ],
+                'ball': [
+                    {'x': x, 'y': y}
+                ]
             }
             self.db.game.insert(rec)
             return True, "Success"

@@ -13,11 +13,13 @@
 <body>
 <h4>SPOT THE BALL</h4><br><br>
     <div id="login" class="span3 well well-large offset4">
+        <h5>ADD GAME</h5><br>
         <center>
-        <form action="/add_game" method="post">
+        <form action="/add_game" method="post" enctype=multipart/form-data>
         <table>
             <tr>
-                <th>Add Image :&nbsp;&nbsp;&nbsp;</th><th><input type="file" name="pic" accept="image/*"></th>
+                <th>Add Image :&nbsp;&nbsp;&nbsp;</th>
+                <th><input type="file" name="pic" ></th>
             </tr>
             <tr>
                 <th>&nbsp;&nbsp;&nbsp;</th>
