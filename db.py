@@ -14,6 +14,8 @@ from bson import ObjectId
 # json encoded, so had to create this json encoder   #
 #                                                    #
 ######################################################
+
+
 class JSONEncoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, ObjectId):
@@ -23,20 +25,19 @@ class JSONEncoder(json.JSONEncoder):
 
 class Mdb:
 
-    def  __init__(self):
+    def __init__(self):
         conn_str = "mongodb://%s:%s@%s:%d/%s" \
-                  % (DB_USER, DB_PASS,
-                   DB_HOST, DB_PORT, AUTH_DB_NAME)
+                  % (DB_USER, DB_PASS, DB_HOST, DB_PORT, AUTH_DB_NAME)
         # conn_str = 'mongodb'
         client = MongoClient(conn_str)
         self.db = client['games']
 
         print "[Mdb] connected to database :: ", self.db
 
-    def add_game(self,pic, x1, y1, x2, y2, x3, y3, x4, y4, x, y):
+    def add_game(self, pic, x1, y1, x2, y2, x3, y3, x4, y4, x, y):
         try:
             rec = {
-                'pic':pic,
+                'pic': pic,
                 'x1': x1,
                 'y1': y1,
                 'x2': x2,
@@ -56,7 +57,6 @@ class Mdb:
             print(traceback.format_exc())
             return False, "Exception: %s" % exp
 
-
     def get_game(self):
         collection = self.db["game"]
         result = collection.find({})
@@ -71,8 +71,5 @@ class Mdb:
 if __name__ == "__main__":
     # quick test connecting to localdb
     mdb = Mdb()
-    mdb.add_game('56', '65', '789', '56', '98', '123', '68', '57', '100', '101')
+    mdb.add_game('56', '65', '789', '56', '98', '123', '68', '57', '10', '11')
     # mdb.retrieve_data('LuminoGuru Pvt. Ltd.')
-
-
-    # LuminoGuru Pvt. Ltd.

@@ -1,0 +1,13 @@
+{
+  "name": "spottheball Heroku Login App",
+  "description": "spottheball Heroku Login App",
+  "keywords": [
+    "spottheball",
+    "python",
+    "sample"
+  ],
+  "repository": "https://github.com/stoic1979/SpotTheBall.git",
+  "addons": [
+    "heroku-postgresql"
+  ]
+}

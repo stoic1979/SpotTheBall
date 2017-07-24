@@ -1,9 +1,14 @@
 from flask import Flask, request, render_template
 import traceback
-from db import  Mdb
+from db import Mdb
 import json
 app = Flask(__name__)
 mdb = Mdb()
+
+
+@app.route('/')
+def home():
+    return 'Welcome to Spot The Ball'
 
 @app.route('/admin')
 def admin():
@@ -13,9 +18,8 @@ def admin():
 
 @app.route('/add_game', methods=['POST'])
 def add_game():
-    ret ={}
+    ret = {}
     try:
-        print "", request.form
         pic = request.form['pic']
         x1 = request.form['x1']
         y1 = request.form['y1']
@@ -36,10 +40,10 @@ def add_game():
         print(traceback.format_exc())
     return json.dumps(ret)
 
+
 @app.route("/get_game", methods=['GET'])
 def get_game():
     return mdb.get_game()
-
 
 
 if __name__ == '__main__':

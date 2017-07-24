@@ -1,39 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>admin</title>
 </head>
+
 <body>
-<form action="/add_game" method="post">
+<center>
+
+    <form action="/add_game" method="post">
     <h2>Add Game</h2>
-<table>
-<tr>
-    <th><input type="file" name="pic" accept="image/*"></th>
+        <table>
+            <tr>
+                <th><input type="file" name="pic" accept="image/*"></th>
+            </tr>
 
-</tr>
+            <tr>
+                <th>Eye pixel 1 :</th><th><input type="text" name="x1" size="5">  <input type="text" name="y1" size="5"></th>
+            </tr>
+            <tr>
+                <th>Eye pixel 2 :</th><th><input type="text" name="x2" size="5">  <input type="text" name="y2" size="5"></th>
+            </tr>
+            <tr>
+                <th>Eye pixel 3 :</th><th><input type="text" name="x3" size="5"> <input type="text" name="y3" size="5"></th>
+            </tr>
+            <tr>
+                <th>Eye pixel 4 :</th><th><input type="text" name="x4" size="5">  <input type="text" name="y4" size="5"></th>
+            </tr>
+            <tr>
+                <th>Ball pixel :</th><th><input type="text" name="x" size="5">  <input type="text" name="y" size="5"></th>
+            </tr>
+            <tr>
+                <th></th><th><input type="submit"></th>
+            </tr>
 
-<tr>
-    <th>Eye pixel 1 :</th><th><input type="text" name="x1" size="5">  <input type="text" name="y1" size="5"></th>
-</tr>
-<tr>
-    <th>Eye pixel 2 :</th><th><input type="text" name="x2" size="5">  <input type="text" name="y2" size="5"></th>
-</tr>
-<tr>
-    <th>Eye pixel 3 :</th><th><input type="text" name="x3" size="5"> <input type="text" name="y3" size="5"></th>
-</tr>
-<tr>
-    <th>Eye pixel 4 :</th><th><input type="text" name="x4" size="5">  <input type="text" name="y4" size="5"></th>
-</tr>
-<tr>
-    <th>Ball pixel :</th><th><input type="text" name="x" size="5">  <input type="text" name="y" size="5"></th>
-</tr>
-<tr>
-<th></th><th><input type="submit"></th>
-</tr>
-
-</table>
-</form>
-
+        </table>
+    </form>
+</center>
 </body>
 </html>
