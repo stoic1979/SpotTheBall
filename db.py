@@ -26,12 +26,12 @@ class JSONEncoder(json.JSONEncoder):
 class Mdb:
 
     def __init__(self):
-        conn_str = "mongodb://%s:%s@%s:%d/%s" \
-                   % (DB_USER, DB_PASS, DB_HOST, DB_PORT, AUTH_DB_NAME)
-        # conn_str = 'mongodb://stbuser:stbpass@ds127531.' \
-          #         'mlab.com:27531/spottheball'
+        # conn_str = "mongodb://%s:%s@%s:%d/%s" \
+          #         % (DB_USER, DB_PASS, DB_HOST, DB_PORT, AUTH_DB_NAME)
+        conn_str = 'mongodb://stbuser:stbpass@ds127531.' \
+                   'mlab.com:27531/spottheball'
         client = MongoClient(conn_str)
-        self.db = client['games']
+        self.db = client['spottheball']
 
         print "[Mdb] connected to database :: ", self.db
 
