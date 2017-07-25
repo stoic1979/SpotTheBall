@@ -26,16 +26,16 @@ class JSONEncoder(json.JSONEncoder):
 class Mdb:
 
     def __init__(self):
-        # conn_str = "mongodb://%s:%s@%s:%d/%s" \
-          #         % (DB_USER, DB_PASS, DB_HOST, DB_PORT, AUTH_DB_NAME)
-        conn_str = 'mongodb://stbuser:stbpass@ds127531.' \
-                   'mlab.com:27531/spottheball'
+        conn_str = "mongodb://%s:%s@%s:%d/%s" \
+                 % (DB_USER, DB_PASS, DB_HOST, DB_PORT, AUTH_DB_NAME)
+        # conn_str = 'mongodb://stbuser:stbpass@ds127531.' \
+          #         'mlab.com:27531/spottheball'
         client = MongoClient(conn_str)
-        self.db = client['spottheball']
+        self.db = client['games']
 
         print "[Mdb] connected to database :: ", self.db
 
-    def add_game(self, pic, x1, y1, x2, y2, x3, y3, x4, y4, x, y):
+    def add_game(self, pic, x1, y1, x2, y2, x3, y3, x4, y4, ball_x, ball_y):
         try:
             rec = {
                 'pic': pic,
@@ -46,7 +46,7 @@ class Mdb:
                     {'x': x4, 'y': y4}
                 ],
                 'ball': [
-                    {'x': x, 'y': y}
+                    {'x': ball_x, 'y': ball_y}
                 ]
             }
             self.db.game.insert(rec)
