@@ -113,6 +113,48 @@ def load_game():
     return render_template("game.html", **templateData)
 
 
+@app.route('/add_img', methods=['GET'])
+def add_img():
+    templateData = {'title': 'Add Image'}
+    return render_template("add_img.html", **templateData)
+
+###########################################
+#          add game                       #
+###########################################
+@app.route('/create_game', methods=['POST'])
+def save_img():
+
+    prefix = request.base_url[:-len('/create_game')]
+
+    ret = {}
+    try:
+        file = request.files['pic']
+
+        filename = ""
+
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            pic = '%s/%s' % (file_path, filename)
+
+        print "file_path:", file_path
+
+        save_file_url = "%s/uploads/%s" % (prefix, filename)
+
+        templateData = {'imgGame': save_file_url, 'title': 'Create Game'}
+        return render_template("create_game.html", **templateData)
+
+    except Exception as exp:
+        ret['error'] = 1
+        ret['msg'] = exp
+        print(traceback.format_exc())
+    return json.dumps(ret)
+
 
 ###########################################
 #          add game                       #
