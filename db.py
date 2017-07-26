@@ -67,7 +67,74 @@ class Mdb:
         return JSONEncoder().encode({'game': ret})
 
 
+###########################################
+#          Add User in database           #
+###########################################
+    def add_user(self, user, email, password):
+        try:
+            rec = {
+                'user': user,
+                'email': email,
+                'password': password
+            }
+            self.db.user.insert(rec)
+
+        except Exception as exp:
+            print "login() :: Got exception: %s", exp
+            print(traceback.format_exc())
+
+
+###########################################
+#          check User in database         #
+###########################################
+    def user_exists(self, email, password):
+        """
+        function checks if a user with given email and password
+        exists in database
+        :param email: email of the user
+        :param password: password of the user
+        :return: True, if user exists,
+                 False, otherwise
+        """
+        return self.db.user.find({'email': email,
+                                  'password': password}).count() > 0
+
+###########################################
+#              save ball position         #
+###########################################
+    def save_ball_position(self, game_id, ball_x, ball_y):
+        try:
+            rec = {
+                'game_id': game_id,
+                'ball': [
+                    {'x': ball_x, 'y': ball_y}
+                ]
+            }
+            self.db.bet.insert(rec)
+        except Exception as exp:
+            print "login() :: Got exception: %s", exp
+            print(traceback.format_exc())
+
+
+###########################################
+#               get ball position         #
+###########################################
+    def get_ball_position(self, game_id):
+        collection = self.db['bet']
+        result = collection.find({'game_id': game_id})
+        ret = []
+        item = {}
+        for data in result:
+            item['game_id'] = data['_id']
+            item['ball'] = data['ball']
+            print 'id: ', item['game_id']
+            print 'ball: ', item['ball']
+            ret.append(item)
+        return JSONEncoder().encode({'ball position': ret})
+
 if __name__ == "__main__":
     # quick test connecting to localdb
     mdb = Mdb()
-    mdb.add_game('56', '65', '789', '56', '98', '123', '68', '57', '10', '11')
+    # mdb.add_game('56', '65', '789', '56', '98', '123', '68', '57', '10', '11')
+    # mdb.save_ball_position('1', '22', '33')
+    mdb.get_ball_position('1')
