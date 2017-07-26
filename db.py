@@ -62,7 +62,7 @@ class Mdb:
 
         ret = []
         for data in result:
-            print "<<=====got the data====>> :: %s" % data
+            # print "<<=====got the data====>> :: %s" % data
             ret.append(data)
         return JSONEncoder().encode({'game': ret})
 
