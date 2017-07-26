@@ -11,9 +11,26 @@ import jsonify
 app = Flask(__name__)
 mdb = Mdb()
 
+from bson import ObjectId
+
+
+######################################################
+#                                                    #
+# Note: _id of mongodb collection was not getting    #
+# json encoded, so had to create this json encoder   #
+#                                                    #
+######################################################
+class JSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        return json.JSONEncoder.default(self, o)
+
+
 @app.route('/')
 def home():
     return 'Welcome to Spot The Ball'
+
 
 #########################################
 #              upload Image             #
@@ -210,7 +227,18 @@ def clearsession():
 ###########################################
 @app.route("/get_game", methods=['GET'])
 def get_game():
-    return mdb.get_game()
+
+    ret = {'err': 0, 'msg': 'Success'}
+
+    try:
+        ret["game"] = mdb.get_game()
+    except Exception as exp:
+        ret["msg"] = "Exceptiion: %s" % exp
+        ret['err'] = 1
+        print(traceback.format_exc())
+    return JSONEncoder().encode(ret)
+
+
 
 
 ###########################################

@@ -4,34 +4,19 @@
 
 from pymongo import MongoClient
 import traceback
-import json
-from config import *
-from bson import ObjectId
-
-######################################################
-#                                                    #
-# Note: _id of mongodb collection was not getting    #
-# json encoded, so had to create this json encoder   #
-#                                                    #
-######################################################
-
-
-class JSONEncoder(json.JSONEncoder):
-    def default(self, o):
-        if isinstance(o, ObjectId):
-            return str(o)
-        return json.JSONEncoder.default(self, o)
 
 
 class Mdb:
 
     def __init__(self):
+        """
         conn_str = "mongodb://%s:%s@%s:%d/%s" \
                  % (DB_USER, DB_PASS, DB_HOST, DB_PORT, AUTH_DB_NAME)
-        # conn_str = 'mongodb://stbuser:stbpass@ds127531.' \
-          #         'mlab.com:27531/spottheball'
+        """
+        conn_str = 'mongodb://stbuser:stbpass@ds127531.' \
+                   'mlab.com:27531/spottheball'
         client = MongoClient(conn_str)
-        self.db = client['games']
+        self.db = client['spottheball']
 
         print "[Mdb] connected to database :: ", self.db
 
@@ -64,7 +49,8 @@ class Mdb:
         for data in result:
             # print "<<=====got the data====>> :: %s" % data
             ret.append(data)
-        return JSONEncoder().encode({'game': ret})
+
+        return ret
 
 
 ###########################################
@@ -130,7 +116,8 @@ class Mdb:
             print 'id: ', item['game_id']
             print 'ball: ', item['ball']
             ret.append(item)
-        return JSONEncoder().encode({'ball position': ret})
+        #return JSONEncoder().encode({'ball position': ret})
+            return ret
 
 if __name__ == "__main__":
     # quick test connecting to localdb
