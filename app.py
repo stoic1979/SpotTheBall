@@ -57,7 +57,12 @@ def token_required(f):
     return decoated
 
 
-@app.route('/<filename>')
+###################################################
+#                                                 #
+# specify the path here to server uploaded images #
+#                                                 #
+###################################################
+@app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
