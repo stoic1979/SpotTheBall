@@ -86,8 +86,15 @@ def user():
 
 @app.route('/signin')
 def signin():
-    templateData = {'title': 'singnin'}
+    templateData = {'title': 'Sign In'}
     return render_template("signin.html", **templateData)
+
+
+@app.route('/game', methods=['GET'])
+def load_game():
+    templateData = {'title': 'Spot The Ball'}
+    return render_template("game.html", **templateData)
+
 
 
 ###########################################

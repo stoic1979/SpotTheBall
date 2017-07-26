@@ -5,12 +5,10 @@
 
 <p>Image to use:</p>
 
-<img id="bg" width="0" height="0" src="uploads/a2.jpg" alt="Game Background">
-<img id="ball" width="0" height="0" src="uploads/ball.png" alt="Ball">
+<img id="bg" width="0" height="0" src="uploads/3.jpg" alt="Game Background">
+<img id="ball" width="0" height="0" src="{{ url_for('static', filename='images/ball.png') }}" alt="Ball">
 
-<p>Canvas:</p>
-
-<canvas id="myCanvas" width="1000" height="600"
+<canvas id="myCanvas" width="1050" height="660"
 style="border:1px solid #d3d3d3;">
 Your browser does not support the HTML5 canvas tag.
 </canvas>
