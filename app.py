@@ -123,6 +123,8 @@ def add_game():
     try:
         file = request.files['pic']
 
+        filename = ""
+
         # if user does not select file, browser also
         # submit a empty part without filename
         if file.filename == '':
@@ -146,7 +148,7 @@ def add_game():
 
         print "file_path:", file_path
 
-        mdb.add_game(pic, x1, y1, x2, y2, x3, y3, x4, y4, ball_x, ball_y)
+        mdb.add_game(filename, x1, y1, x2, y2, x3, y3, x4, y4, ball_x, ball_y)
         ret['error'] = 0
         ret['msg'] = 'Game is stored successfully'
     except Exception as exp:

@@ -1,20 +1,20 @@
 <html>
 
-<head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</head>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
 
-<body>
+    <body>
 
-<img id="bg" width="0" height="0" src="uploads/3.jpg" alt="Game Background">
-<img id="ball" width="0" height="0" src="{{ url_for('static', filename='images/ball.png') }}" alt="Ball">
+        <img id="bg" width="0" height="0" src="uploads/a2.jpg" alt="Game Background">
+        <img id="ball" width="0" height="0" src="{{ url_for('static', filename='images/ball.png') }}" alt="Ball">
 
-<canvas id="myCanvas" width="1050" height="660"
-style="border:1px solid #d3d3d3;">
-Your browser does not support the HTML5 canvas tag.
-</canvas>
+        <canvas id="myCanvas" width="1050" height="660"
+                                           style="border:1px solid #d3d3d3;">
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
 
-<script>
+        <script>
 
 
 //####################//
@@ -27,6 +27,8 @@ function Point(x,y)
     this.x = x;
     this.y = y;
 }
+
+var currentGame;
 
 var canvas  = canvas = document.getElementById("myCanvas");
 var ctx     = canvas.getContext("2d");
@@ -56,31 +58,33 @@ ball.height = 80;
 //        eyes        //
 //                    //
 //####################//
+/*
 var eyes = [
-  new Point(140, 423),
-  new Point(170, 425),
-  
-  new Point(336, 535),
-  new Point(376, 532),
+    new Point(140, 423),
+    new Point(170, 425),
 
-  new Point(680, 188),
-  new Point(713, 187),  
+    new Point(336, 535),
+    new Point(376, 532),
+
+    new Point(680, 188),
+    new Point(713, 187),  
 
 
 ];
+*/
 
 //#########################################//
 //                                         //
 //               Mouse position            //
 //                                         //
 //#########################################//
-  function getMousePos(canvas, evt) {
+function getMousePos(canvas, evt) {
     var rect = canvas.getBoundingClientRect();
     return {
-      x: evt.clientX - rect.left,
-      y: evt.clientY - rect.top
+        x: evt.clientX - rect.left,
+        y: evt.clientY - rect.top
     };
-  }
+}
 
 
 
@@ -94,44 +98,45 @@ function drawScene() {
 
 
 
-console.log("Canvas: " + canvas.width + "X" + canvas.height);
-  
-  // use this trick to clear canvas
-  canvas.width = canvas.width;
-  //canvas.height = canvas.height;
+    console.log("Canvas: " + canvas.width + "X" + canvas.height);
 
-//#########################################//
-//                                         //
-//         drawing background image        //
-//                                         //
-//#########################################//
-  ctx.drawImage(imgBg, 0, 0);
-  
+    // use this trick to clear canvas
+    canvas.width = canvas.width;
+    //canvas.height = canvas.height;
 
-//#########################################//
-//                                         //
-//         draw eye lines to ball          //
-//                                         //
-//#########################################//
+    //#########################################//
+    //                                         //
+    //         drawing background image        //
+    //                                         //
+    //#########################################//
+    ctx.drawImage(imgBg, 0, 0);
+
+
+    //#########################################//
+    //                                         //
+    //         draw eye lines to ball          //
+    //                                         //
+    //#########################################//
+    var eyes = currentGame.eyes;
     for(var i=0; i < eyes.length; i++) {
-      var eye = eyes[i];
-      ctx.rect(eye.x, eye.y, 2, 2);
-      ctx.stroke();
+        var eye = eyes[i];
+        ctx.rect(eye.x, eye.y, 2, 2);
+        ctx.stroke();
 
-      ctx.moveTo(eye.x, eye.y);
-      ctx.lineTo(ball.x + ball.width/2, ball.y + ball.height/2);
-      ctx.stroke();
+        ctx.moveTo(eye.x, eye.y);
+        ctx.lineTo(ball.x + ball.width/2, ball.y + ball.height/2);
+        ctx.stroke();
     }
 
 
-//#########################################//
-//                                         //
-//                drawing ball             //
-//                                         //
-//#########################################//
-  ctx.drawImage(imgBall, ball.x, ball.y);
+    //#########################################//
+    //                                         //
+    //                drawing ball             //
+    //                                         //
+    //#########################################//
+    ctx.drawImage(imgBall, ball.x, ball.y);
 
-}
+}//drawScene
 
 function logGame(game) {
     console.log("Pic: " + game.pic);
@@ -140,80 +145,81 @@ function logGame(game) {
 
 function loadGame(data) {
 
-    console.log("Data: " + data);
+                                           console.log("Data: " + data);
 
-    var obj = JSON.parse(data);
-    var game = obj.game[0];
+                                           var obj = JSON.parse(data);
+                                           var game = obj.game[0];
 
-    console.log("Msg: " + obj.msg);
-    console.log("Error: " + obj.err);
+                                           console.log("Msg: " + obj.msg);
+                                           console.log("Error: " + obj.err);
 
-    logGame(game);
+                                           logGame(game);
 
-}
-
-
-window.onload = function() {
-  //drawScene();
-
-
-
-
-  $.get( "/get_game", function( data ) {
-  $( ".result" ).html( data );
-    loadGame(data);
-});
-
-};
-
-document.onkeydown = checkKey;
-
-function checkKey(e) {
-
-    e = e || window.event;
-
-    if (e.keyCode == '38') {
-        console.log("-- up --");
-        moveUp();
-    }
-    else if (e.keyCode == '40') {
-        console.log("-- down --");
-        moveDown();
-    }
-    else if (e.keyCode == '37') {
-        console.log("-- left --");
-        moveLeft();
-    }
-    else if (e.keyCode == '39') {
-       console.log("-- right --");
-        moveRight();
-    }
+                                           currentGame = game;
+                                           var newUrl = "http://127.0.0.1:5000/uploads/" + currentGame.pic;
+                                           $("#bg").attr('src', newUrl);
+                                           console.log("newUrl: " + newUrl);
+                                           drawScene();
 
 }
 
-function moveLeft() {
-  if(ball.x -5 < 0) return;
-        ball.x -= 5;
-        drawScene();
-}
 
-function moveRight() {
-  if(ball.x + ball.width + 5 > canvas.width) return;
-        ball.x += 5;
-        drawScene();
-}
+                                           window.onload = function() {
+                                           $.get( "/get_game", function( data ) {
+                                           $( ".result" ).html( data );
+                                           loadGame(data);
+                                           });
+
+                                           };
+
+                                           document.onkeydown = checkKey;
+
+                                           function checkKey(e) {
+
+                                           e = e || window.event;
+
+                                           if (e.keyCode == '38') {
+                                           console.log("-- up --");
+                                           moveUp();
+                                           }
+                                           else if (e.keyCode == '40') {
+                                           console.log("-- down --");
+                                           moveDown();
+                                           }
+                                           else if (e.keyCode == '37') {
+                                           console.log("-- left --");
+                                           moveLeft();
+                                           }
+                                           else if (e.keyCode == '39') {
+                                           console.log("-- right --");
+                                           moveRight();
+                                           }
+
+                                           }
+
+                                           function moveLeft() {
+                                           if(ball.x -5 < 0) return;
+                                           ball.x -= 5;
+                                           drawScene();
+                                           }
+
+                                           function moveRight() {
+                                           if(ball.x + ball.width + 5 > canvas.width) return;
+                                           ball.x += 5;
+                                           drawScene();
+                                           }
 
 function moveUp() {
-  if(ball.y -5 < 0) return;
-        ball.y -= 5;
-        drawScene();
-}
+    if(ball.y -5 < 0) return;
+                                           ball.y -= 5;
+                                           drawScene();
+                                           }
 
-function moveDown() {
-  if(ball.y + ball.height + 5 > canvas.height) return;
-        ball.y += 5;
-        drawScene();
-}
+                                           function moveDown() {
+                                           if(ball.y + ball.height + 5 > canvas.height) return;
+                                           ball.y += 5;
+                                           drawScene();
+                                           }
 
 //#########################################//
 //                                         //
@@ -222,46 +228,46 @@ function moveDown() {
 //#########################################//
 window.addEventListener( "keypress", handleKeyup, false );
 
-  function handleKeyup(e) {
+function handleKeyup(e) {
 
     console.log( "key" + e.keyCode );
 
     if (e.keyCode == 97) { // a
-      moveLeft();
+        moveLeft();
     }
 
     if (e.keyCode == 100) { // d
-      moveRight();
+        moveRight();
     }    
 
     if (e.keyCode == 119) { // w
-      moveUp();
+        moveUp();
     }
 
     if (e.keyCode == 122) { // z
-      moveDown();
+        moveDown();
     }
 
-  }
+}
 
 /*
---------------------------------------------------------
+   --------------------------------------------------------
 
 
 // mongo dict to save
 
 game = {
-    "img": "http://abc/1.png",
-    "eyes": [
-      {"x": 45, "y": 120},
-      {"x": 68, "y": 77},
-      {"x": 90, "y": 100},
-      {"x": 244, "y": 23},
-    ],
-    "ball": {
-      "x": 100,
-      "y": 150
-    }
+"img": "http://abc/1.png",
+"eyes": [
+{"x": 45, "y": 120},
+{"x": 68, "y": 77},
+{"x": 90, "y": 100},
+{"x": 244, "y": 23},
+],
+"ball": {
+"x": 100,
+"y": 150
+}
 }
 
 
@@ -269,10 +275,10 @@ game = {
 --------------------------------------------------------
 
 
-*/
+ */
 
 
 
-</script>
-<input type="button" value="done"></body>
+        </script>
+        <input type="button" value="done"></body>
 </html>
