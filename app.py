@@ -119,6 +119,9 @@ def load_game():
 ###########################################
 @app.route('/add_game', methods=['POST'])
 def add_game():
+
+    prefix = request.base_url[:-len('/add_game')]
+
     ret = {}
     try:
         file = request.files['pic']
@@ -148,7 +151,9 @@ def add_game():
 
         print "file_path:", file_path
 
-        mdb.add_game(filename, x1, y1, x2, y2, x3, y3, x4, y4, ball_x, ball_y)
+        save_file_url = "%s/uploads/%s" % (prefix, filename)
+
+        mdb.add_game(save_file_url, x1, y1, x2, y2, x3, y3, x4, y4, ball_x, ball_y)
         ret['error'] = 0
         ret['msg'] = 'Game is stored successfully'
     except Exception as exp:

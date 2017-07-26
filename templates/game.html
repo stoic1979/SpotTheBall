@@ -156,9 +156,7 @@ function loadGame(data) {
                                            logGame(game);
 
                                            currentGame = game;
-                                           var newUrl = "http://127.0.0.1:5000/uploads/" + currentGame.pic;
-                                           $("#bg").attr('src', newUrl);
-                                           console.log("newUrl: " + newUrl);
+                                           $("#bg").attr('src', currentGame.pic);
                                            drawScene();
 
 }
