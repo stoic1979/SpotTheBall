@@ -1,4 +1,9 @@
 <html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
 <body>
 
 <img id="bg" width="0" height="0" src="uploads/3.jpg" alt="Game Background">
@@ -128,9 +133,37 @@ console.log("Canvas: " + canvas.width + "X" + canvas.height);
 
 }
 
+function logGame(game) {
+    console.log("Pic: " + game.pic);
+}
+
+
+function loadGame(data) {
+
+    console.log("Data: " + data);
+
+    var obj = JSON.parse(data);
+    var game = obj.game[0];
+
+    console.log("Msg: " + obj.msg);
+    console.log("Error: " + obj.err);
+
+    logGame(game);
+
+}
+
 
 window.onload = function() {
-  drawScene();
+  //drawScene();
+
+
+
+
+  $.get( "/get_game", function( data ) {
+  $( ".result" ).html( data );
+    loadGame(data);
+});
+
 };
 
 document.onkeydown = checkKey;
