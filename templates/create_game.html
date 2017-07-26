@@ -12,7 +12,44 @@
 
 </head>
 <body>
-<h4>Create Game</h4><br><br>
+
 <img src="{{ imgGame }}"></img>
+
+<form action="/add_game" method="post" enctype=multipart/form-data>
+        <table>
+            <tr>
+                <th></th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Left Eye  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Right Eye
+               </th>
+            </tr>
+            <tr>
+                <th></th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Y &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Y
+               </th>
+            </tr>
+            <tr>
+                <th>Face-1 :</th><th><input type="text" name="x1" size="10">  <input type="text" name="y1" size="10">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="x1" size="10">  <input type="text" name="y1" size="10"></th>
+            </tr>
+            <tr>
+                <th>Face-2 :</th><th><input type="text" name="x2" size="10">  <input type="text" name="y2" size="10">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="x2" size="10">  <input type="text" name="y2" size="10"></th>
+            </tr>
+            <tr>
+                <th>Face-3 :</th><th><input type="text" name="x3" size="10"> <input type="text" name="y3" size="10">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="x3" size="10"> <input type="text" name="y3" size="10"></th>
+            </tr>
+            <tr>
+                <th>Face-4 :</th><th><input type="text" name="x4" size="10">  <input type="text" name="y4" size="10">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="x4" size="10">  <input type="text" name="y4" size="10"></th>
+            </tr>
+            <tr>
+                <th>Ball&nbsp;&nbsp; pixel :</th><th><input type="text" name="ball_x" size="10">  <input type="text" name="ball_y" size="10"></th>
+            </tr>
+            <tr>
+                <th>&nbsp;&nbsp;&nbsp;</th>
+            </tr>
+            <tr>
+                <th></th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="submit" value="SUBMIT"></th>
+            </tr>
+
+        </table>
+        </form>
 </body>
 </html>
