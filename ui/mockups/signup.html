@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SPOT THE BALL</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="home.html">SPOT THE BALL</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="home.html">HOME</a></li>        
+        <li><a href="play_game.html">PLAY GAME</a></li>
+        <li><a href="game_result.html">GAME RESULT</a></li>
+        <li><a href="works.html">HOW IT WORKS</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="signup.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav><br><br><br><br>
+<div class="container">
+  <div class="row">
+
+    <div class="col-sm-12">
+
+<div class="jumbotron text-center">
+
+    <div id="signup" class="span3 well well-large offset4">
+        <center>
+        <h4>Sign up for your account</h4><br>
+        <form class="form" action="/signup" method="post">
+            <table>
+             <tr>
+                <th>USER NAME :</th><th><input type="text" size="30" name="username" required=""></tr>
+            </tr>
+            <tr>
+                <th>NAME :</th><th><input type="text" size="30" name="name" required=""></tr>
+            </tr>
+            <tr>
+                <th>EMAIL ID :</th><th><input type="text" size="30" name="email" required=""></tr>
+            </tr>
+            <tr>
+                <th>PASSWORD :</th><th><input type="password" size="30" name="password" required=""></tr>
+            </tr>
+            <tr>
+                <th><label class="checkbox" for="rememberme"></th>
+                <th><input type="checkbox" /> Remember me</label></th>
+            </tr>
+            <tr>
+                <th></th><th><input class="btn btn-success" type="submit" value="Signup" />
+                <input class="btn btn-reset" type="reset" value="Reset" /><br>
+                Already have an account? <a class="btn" href="login.html">Login In</a></th>
+                    </tr>
+            </table>
+        </form>
+        </center>
+    </div>
+
+</div>
+    </div>
+    </div></div>
+
+</body>
+</html>
