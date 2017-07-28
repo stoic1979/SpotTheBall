@@ -84,11 +84,23 @@ function drawScene() {
 
 		console.log("EYE: " + eye.x + "," + eye.y);
 
+		ctx.beginPath();
+		if(curType == "EYE" && curIndex-1 == i) {
+			ctx.strokeStyle="red";
+			console.log("red");
+		} else {
+			ctx.strokeStyle="#000";
+			console.log("black");
+		}
+
 		ctx.rect(eye.x-5, eye.y-5, 10, 10);
-        ctx.stroke();
+        //ctx.stroke();
 
         ctx.moveTo(eye.x, eye.y);
         ctx.lineTo(ballX + ballWidth/2, ballY + ballHeight/2);
+
+	
+
         ctx.stroke();
     }
 }
@@ -106,17 +118,17 @@ function onClick(evt) {
 	
 	var x1, y1;
 
-		if(curType == "EYE") {
-    	 	x1 = document.getElementById("x" + curIndex);
-	     	y1 = document.getElementById("y" + curIndex);
-			eyes[curIndex-1].x = x;
-			eyes[curIndex-1].y = y;
-		} else {
-			x1 = document.getElementById("ball_x");
-	        y1 = document.getElementById("ball_y");
-			ballX = x - ballWidth/2;
-			ballY = y - ballHeight/2;		
-		}
+	if(curType == "EYE") {
+     	x1 = document.getElementById("x" + curIndex);
+	   	y1 = document.getElementById("y" + curIndex);
+		eyes[curIndex-1].x = x;
+		eyes[curIndex-1].y = y;
+	} else {
+		x1 = document.getElementById("ball_x");
+	    y1 = document.getElementById("ball_y");
+		ballX = x - ballWidth/2;
+		ballY = y - ballHeight/2;		
+	}
 
     x1.value = "" + x;
     y1.value = "" + y;
