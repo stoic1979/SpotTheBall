@@ -11,7 +11,7 @@
     <!--
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
     -->
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <script src="create_game.js"></script>
 
 
@@ -40,40 +40,40 @@
             </tr>
             <tr>
                 <th>Face-1 :</th><th>
-                    <input type="text" id="x1" name="x1" size="10" onclick="setSelectedItem('EYE', 1)">  
-                    <input type="text" id ="y1" name="y1" size="10" onclick="setSelectedItem('EYE', 1)">
+                    <input type="text" id="x1" name="x1" size="10" onclick="setSelectedItem('EYE', 1)" oninput="handleTextChanged('EYE', 1)">  
+                    <input type="text" id ="y1" name="y1" size="10" onclick="setSelectedItem('EYE', 1)"  oninput="handleTextChanged('EYE', 1)">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" id="x2" name="x2" size="10" onclick="setSelectedItem('EYE', 2)"> 
-                    <input type="text" id="y2" name="y2" size="10"onclick="setSelectedItem('EYE', 2)"></th>
+                    <input type="text" id="x2" name="x2" size="10" onclick="setSelectedItem('EYE', 2)"  oninput="handleTextChanged('EYE', 2)"> 
+                    <input type="text" id="y2" name="y2" size="10"onclick="setSelectedItem('EYE', 2)"  oninput="handleTextChanged('EYE', 2)"></th>
             </tr>
             <tr>
                 <th>Face-2 :</th><th>
-                    <input type="text" id="x3" name="x3" size="10" onclick="setSelectedItem('EYE', 3)">
-                    <input type="text" id="y3" name="y3" size="10" onclick="setSelectedItem('EYE', 3)">
+                    <input type="text" id="x3" name="x3" size="10" onclick="setSelectedItem('EYE', 3)"  oninput="handleTextChanged('EYE', 3)">
+                    <input type="text" id="y3" name="y3" size="10" onclick="setSelectedItem('EYE', 3)"  oninput="handleTextChanged('EYE', 3)">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" id="x4" name="x4" size="10" onclick="setSelectedItem('EYE', 4)">  
-                    <input type="text" id="y4" name="y4" size="10" onclick="setSelectedItem('EYE', 4)"></th>
+                    <input type="text" id="x4" name="x4" size="10" onclick="setSelectedItem('EYE', 4)"  oninput="handleTextChanged('EYE', 4)">  
+                    <input type="text" id="y4" name="y4" size="10" onclick="setSelectedItem('EYE', 4)"  oninput="handleTextChanged('EYE', 4)"></th>
             </tr>
             <tr>
                 <th>Face-3 :</th><th>
-                    <input type="text" id="x5" name="x5" size="10" onclick="setSelectedItem('EYE', 5)"> 
-                    <input type="text" id="y5"name="y5" size="10"onclick="setSelectedItem('EYE', 5)">
+                    <input type="text" id="x5" name="x5" size="10" onclick="setSelectedItem('EYE', 5)"  oninput="handleTextChanged('EYE', 5)"> 
+                    <input type="text" id="y5"name="y5" size="10"onclick="setSelectedItem('EYE', 5)"  oninput="handleTextChanged('EYE', 5)">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" id="x6" name="x6" size="10" onclick="setSelectedItem('EYE', 6)"> 
-                    <input type="text" id="y6" name="y6" size="10" onclick="setSelectedItem('EYE', 6)"></th>
+                    <input type="text" id="x6" name="x6" size="10" onclick="setSelectedItem('EYE', 6)"  oninput="handleTextChanged('EYE', 6)"> 
+                    <input type="text" id="y6" name="y6" size="10" onclick="setSelectedItem('EYE', 6)"  oninput="handleTextChanged('EYE', 6)"></th>
             </tr>
             <tr>
                 <th>Face-4 :</th><th>
-                    <input type="text" id="x7" name="x7" size="10" onclick="setSelectedItem('EYE', 7)">  
-                    <input type="text" id="y7" name="y7" size="10" onclick="setSelectedItem('EYE', 7)">
+                    <input type="text" id="x7" name="x7" size="10" onclick="setSelectedItem('EYE', 7)"  oninput="handleTextChanged('EYE', 7)">  
+                    <input type="text" id="y7" name="y7" size="10" onclick="setSelectedItem('EYE', 7)"  oninput="handleTextChanged('EYE', 7)">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" id="x8" name="x8" size="10" onclick="setSelectedItem('EYE', 8)">  
-                    <input type="text" id="y8" name="y8" size="10" onclick="setSelectedItem('EYE', 8)"></th>
+                    <input type="text" id="x8" name="x8" size="10" onclick="setSelectedItem('EYE', 8)"  oninput="handleTextChanged('EYE', 8)">  
+                    <input type="text" id="y8" name="y8" size="10" onclick="setSelectedItem('EYE', 8)"  oninput="handleTextChanged('EYE', 8)"></th>
             </tr>
             <tr>
                 <th>Ball&nbsp;&nbsp; pixel :</th><th>
-                    <input type="text" id="ball_x" name="ball_x" size="10" onclick="setSelectedItem('BALL', 0)">  
-                    <input type="text" id="ball_y" name="ball_y" size="10" onclick="setSelectedItem('BALL', 0)"></th>
+                    <input type="text" id="ball_x" name="ball_x" size="10" onclick="setSelectedItem('BALL', 0)"  oninput="handleTextChanged('BALL', 0)">  
+                    <input type="text" id="ball_y" name="ball_y" size="10" onclick="setSelectedItem('BALL', 0)"  oninput="handleTextChanged('BALL', 0)"></th>
             </tr>
             <tr>
                 <th>&nbsp;&nbsp;&nbsp;</th>
@@ -86,5 +86,7 @@
 
         </table>
         </form>
+<br>
+<span id="tip">Tip: Some quick help will be shown here.</span>
 </body>
 </html>

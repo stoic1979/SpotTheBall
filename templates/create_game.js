@@ -8,8 +8,8 @@ var ballY 		= 100;
 var ballWidth   = 80;
 var ballHeight  = 80;
 
-var curIndex;
-var curType = "";
+var curIndex = "1";
+var curType = "EYE";
 
 //####################//
 //                    //
@@ -193,6 +193,41 @@ function setSelectedItem(type, val) {
 	// alert("setSelectedItem: " + val);
 }
 
+function handleTextChanged(type, val) {
+	console.log("handleTextChanged: type=" + type + ", val=" + val);
+
+	//------------------------------------------
+	// EYE
+	//------------------------------------------
+	if(type == "EYE") {
+
+		var x = document.getElementById("x" + val);
+		if(x.value.length > 0) {
+			eyes[val-1].x = parseInt(x.value);
+		}
+
+		var y = document.getElementById("y" + val);
+			if(y.value.length > 0) {
+			eyes[val-1].y = parseInt(y.value);
+		}
+	}
+
+	if(type == "BALL") {
+
+		var x = document.getElementById("ball_x");
+		if(x.value.length > 0) {
+			ballX = parseInt(x.value);
+		}
+
+		var y = document.getElementById("ball_y");
+			if(y.value.length > 0) {
+			ballY = parseInt(y.value);
+		}
+	}
+
+	drawScene();
+
+}
   
 
 //-------------------------------------
