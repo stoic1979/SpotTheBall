@@ -70,6 +70,15 @@ function drawScene() {
 
     ctx.drawImage(imgBall, ballX, ballY);
 
+    if(curType == "BALL") {
+		console.log("circle");
+		ctx.beginPath();
+		ctx.strokeStyle = "red";
+		ctx.arc(ballX+ballWidth/2, ballY+ballWidth/2, ballWidth/2 + 5, 0,2*Math.PI);
+		ctx.stroke();
+	}
+
+
 
     //#########################################//
     //                                         //
@@ -85,12 +94,16 @@ function drawScene() {
 		console.log("EYE: " + eye.x + "," + eye.y);
 
 		ctx.beginPath();
-		if(curType == "EYE" && curIndex-1 == i) {
+		if(curType == "EYE") {
+			if(curIndex-1 == i) {
 			ctx.strokeStyle="red";
 			console.log("red");
-		} else {
+			} else {
 			ctx.strokeStyle="#000";
 			console.log("black");
+			}
+		} else {
+			ctx.strokeStyle="#000";
 		}
 
 		ctx.rect(eye.x-5, eye.y-5, 10, 10);
@@ -142,6 +155,8 @@ function setSelectedItem(type, val) {
 
 	curType = type;
 	curIndex = val;
+
+	drawScene();
    
 	// alert("setSelectedItem: " + val);
 }
