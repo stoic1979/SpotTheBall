@@ -149,9 +149,41 @@ function onClick(evt) {
 	drawScene();
 }
 
+function resetAllTextColors() {
+	for(var i=1; i<=8; i++) {
+		setTextColor("EYE", i, "black"); 
+	}
+
+	setTextColor("BALL", 0, "black");
+}
+
+function setTextColor(type, val, col) {
+
+	// ball color
+	if(type == "BALL") {
+		var a = document.getElementById("ball_x");
+		a.style.color = col;
+
+		var b = document.getElementById("ball_y");
+		b.style.color = col;
+	}
+
+	if(type == "EYE") {
+		var a = document.getElementById("x" + val);
+		a.style.color = col;
+
+		var b = document.getElementById("y" + val);
+		b.style.color = col;
+	}
+
+}
+
 function setSelectedItem(type, val) {
 
 	console.log("setSelectedItem: type=" + type + ", val=" + val);
+
+	resetAllTextColors();
+	setTextColor(type, val, "red");
 
 	curType = type;
 	curIndex = val;
