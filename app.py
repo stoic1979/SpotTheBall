@@ -1,17 +1,18 @@
 import os
-from flask import Flask, request, render_template, redirect, send_from_directory, url_for, session, flash
+from flask import Flask, request, render_template, redirect, \
+    send_from_directory, url_for, session, flash
 from functools import wraps
 import traceback
 import jwt
 import datetime
-from werkzeug.utils import  secure_filename
+from werkzeug.utils import secure_filename
 from db import Mdb
 import json
 import jsonify
+from bson import ObjectId
+
 app = Flask(__name__)
 mdb = Mdb()
-
-from bson import ObjectId
 
 
 ######################################################
@@ -58,6 +59,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 #              token required           #
 #########################################
 app.config['secretkey'] = 'some-strong+secret#key'
+
 
 def token_required(f):
     @wraps(f)
@@ -117,6 +119,7 @@ def load_game():
 def add_img():
     templateData = {'title': 'Add Image'}
     return render_template("add_img.html", **templateData)
+
 
 ###########################################
 #          add game                       #
@@ -195,7 +198,8 @@ def add_game():
 
         save_file_url = "%s/uploads/%s" % (prefix, filename)
 
-        mdb.add_game(save_file_url, x1, y1, x2, y2, x3, y3, x4, y4, ball_x, ball_y)
+        mdb.add_game(save_file_url, x1, y1, x2, y2,
+                     x3, y3, x4, y4, ball_x, ball_y)
         ret['error'] = 0
         ret['msg'] = 'Game is stored successfully'
     except Exception as exp:
@@ -286,8 +290,6 @@ def get_game():
         ret['err'] = 1
         print(traceback.format_exc())
     return JSONEncoder().encode(ret)
-
-
 
 
 ###########################################

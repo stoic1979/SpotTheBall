@@ -116,12 +116,13 @@ class Mdb:
             print 'id: ', item['game_id']
             print 'ball: ', item['ball']
             ret.append(item)
-        #return JSONEncoder().encode({'ball position': ret})
+        # return JSONEncoder().encode({'ball position': ret})
             return ret
 
 if __name__ == "__main__":
     # quick test connecting to localdb
     mdb = Mdb()
-    # mdb.add_game('56', '65', '789', '56', '98', '123', '68', '57', '10', '11')
+    # mdb.add_game('56', '65', '789', '56', '98',
+    # '123', '68', '57', '10', '11')
     # mdb.save_ball_position('1', '22', '33')
     mdb.get_ball_position('1')
