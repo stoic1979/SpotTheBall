@@ -18,14 +18,15 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="home.html">SPOT THE BALL</a>
+      <a class="navbar-brand" href="/admin/home">SPOT THE BALL</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="home.html">HOME</a></li>        
-        <li><a href="play_game.html">PLAY GAME</a></li>
-        <li><a href="game_result.html">GAME RESULT</a></li>
-        <li><a href="works.html">HOW IT WORKS</a></li>
+
+            <ul class="nav navbar-nav">
+        <li class="active"><a href="/admin/home">HOME</a></li>
+        <li><a href="/admin/playgame">PLAY GAME</a></li>
+        <li><a href="/admin/result">GAME RESULT</a></li>
+        <li><a href="/admin/work">HOW IT WORKS</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="signup.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -43,9 +44,15 @@
 
     <div id="signup" class="span3 well well-large offset4">
         <center>
-        <h4>ADMIN LOGIN</h4><br>
-        <form class="form" action="/login" method="post">
+        <h4>Sign up for your account</h4><br>
+        <form class="form" action="/signup" method="post">
             <table>
+             <tr>
+                <th>USER NAME :</th><th><input type="text" size="30" name="username" required=""></tr>
+            </tr>
+            <tr>
+                <th>NAME :</th><th><input type="text" size="30" name="name" required=""></tr>
+            </tr>
             <tr>
                 <th>EMAIL ID :</th><th><input type="text" size="30" name="email" required=""></tr>
             </tr>
@@ -57,10 +64,10 @@
                 <th><input type="checkbox" /> Remember me</label></th>
             </tr>
             <tr>
-                <th></th>
-                <th><input class="btn btn-success" type="submit" value="Signin">or
-                    <a class="btn" href="signup.html">Create Account</a></th>
-            </tr>
+                <th></th><th><input class="btn btn-success" type="submit" value="Signup" />
+                <input class="btn btn-reset" type="reset" value="Reset" /><br>
+                Already have an account? <a class="btn" href="login.html">Login In</a></th>
+                    </tr>
             </table>
         </form>
         </center>

@@ -10,9 +10,27 @@ from db import Mdb
 import json
 import jsonify
 from bson import ObjectId
+from flask_login import login_user, login_required, logout_user, current_user
 
 app = Flask(__name__)
 mdb = Mdb()
+
+
+app.config['secretkey'] = 'some-strong+secret#key'
+app.secret_key = 'F12Zr47j\3yX R~X@H!jmM]Lwf/,?KT'
+
+#############################################
+#                                           #
+#                SESSION COUNTER            #
+#                                           #
+#############################################
+
+
+def sumSessionCounter():
+    try:
+        session['counter'] += 1
+    except KeyError:
+        session['counter'] = 1
 
 
 ######################################################
@@ -38,16 +56,6 @@ def home():
 #########################################
 dir_path = os.path.dirname(os.path.realpath(__file__))
 file_path = '%s/%s' % (dir_path, 'uploads')
-
-app.secret_key = 'F12Zr47j\3yX R~X@H!jmM]Lwf/,?KT'
-
-
-def sumSessionCounter():
-    try:
-        session['counter'] += 1
-    except KeyError:
-        session['counter'] = 1
-
 
 UPLOAD_FOLDER = file_path
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -91,39 +99,6 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@app.route('/admin')
-def admin():
-    templateData = {'title': 'admin'}
-    return render_template("admin.html", **templateData)
-
-
-@app.route('/user')
-def user():
-    templateData = {'title': 'user'}
-    return render_template("user.html", **templateData)
-
-
-@app.route('/signin')
-def signin():
-    templateData = {'title': 'Sign In'}
-    return render_template("signin.html", **templateData)
-
-
-@app.route('/game', methods=['GET'])
-def load_game():
-    templateData = {'title': 'Spot The Ball'}
-    return render_template("game.html", **templateData)
-
-
-@app.route('/add_img', methods=['GET'])
-def add_img():
-    templateData = {'title': 'Add Image'}
-    return render_template("add_img.html", **templateData)
-
-
-###########################################
-#          add game                       #
-###########################################
 @app.route('/create_game', methods=['POST'])
 def save_img():
 
@@ -210,38 +185,96 @@ def add_game():
 
 
 ###########################################
-#          add user                       #
+#                 get game                #
 ###########################################
-@app.route("/add_user", methods=['POST'])
+@app.route('/save_ball_position')
+def save_ball_position():
+    return mdb.save_ball_position()
+
+
+###############################################################################
+#                                                                             #
+#                                                                             #
+#                                 ADMIN PANNEL                                #
+#                                                                             #
+#                                                                             #
+###############################################################################
+@app.route('/admin/home')
+def admin():
+    templateData = {'title': 'admin home'}
+    return render_template("admin/admin.html", **templateData)
+
+
+@app.route('/admin/create_game')
+def create_game():
+    templateData = {'title': 'create game'}
+    return render_template("admin/create_game.html", **templateData)
+
+
+@app.route('/admin/game_result')
+def result():
+    templateData = {'title': 'game result'}
+    return render_template("admin/game_result.html", **templateData)
+
+
+@app.route('/admin/work')
+def work():
+    templateData = {'title': 'how it work'}
+    return render_template("admin/work.html", **templateData)
+
+
+@app.route('/admin/login', methods=['POST'])
+def admin_login():
+    email = request.form['email']
+    password = request.form['password']
+    templateData = {'title': 'admin_dashboard'}
+    return render_template("works.html", **templateData)
+
+
+###############################################################################
+#                                                                             #
+#                                                                             #
+#                                 USER PANNEL                                 #
+#                                                                             #
+#                                                                             #
+###############################################################################
+#############################################
+#                 SIGNUP USER               #
+#############################################
+@app.route("/signup", methods=['POST'])
 def add_user():
     try:
-        user = request.form['user']
+        username = request.form['username']
+        name = request.form['name']
         email = request.form['email']
         password = request.form['password']
-        mdb.add_user(user, email, password)
+        mdb.add_user(username, name, email, password)
         print('User is added successfully')
-        templateData = {'title': 'Signin Page'}
+        templateData = {'title': 'Signup Page'}
     except Exception as exp:
         print('add_user() :: Got exception: %s' % exp)
         print(traceback.format_exc())
-    return render_template('user.html', session=session)
+    return render_template('/user/login.html', session=session)
 
 
-###########################################
-#          login user                     #
-###########################################
+#############################################
+#                 LOGIN USER                #
+#############################################
 @app.route('/login', methods=['POST'])
 def login():
+
     ret = {'err': 0}
     try:
         sumSessionCounter()
         email = request.form['email']
         password = request.form['password']
         if mdb.user_exists(email, password):
-            session['name'] = email
+
+            name = mdb.get_name(email)
+            session['name'] = name
+            session['email'] = email
 
             # Login Successful!
-
             expiry = datetime.datetime.utcnow() + datetime.\
                 timedelta(minutes=30)
             token = jwt.encode({'user': email, 'exp': expiry},
@@ -253,7 +286,7 @@ def login():
             templateData = {'title': 'singin page'}
         else:
             # Login Failed!
-            # return render_template('game.html', session=session)
+            return render_template('/user/login.html', session=session)
 
             ret['msg'] = 'Login Failed'
             ret['err'] = 1
@@ -262,7 +295,8 @@ def login():
         ret['msg'] = '%s' % exp
         ret['err'] = 1
         print(traceback.format_exc())
-    return json.dumps(ret)
+    # return jsonify(ret)
+    return render_template('user/user.html', session=session)
 
 
 ###########################################
@@ -271,33 +305,48 @@ def login():
 @app.route('/clear')
 def clearsession():
     session.clear()
-    return render_template('index.html', session=session)
+    return render_template('/user/user.html', session=session)
     # return redirect(request.form('/signin'))
 
 
-###########################################
-#              get game                   #
-###########################################
-@app.route("/get_game", methods=['GET'])
-def get_game():
-
-    ret = {'err': 0, 'msg': 'Success'}
-
-    try:
-        ret["game"] = mdb.get_game()
-    except Exception as exp:
-        ret["msg"] = "Exceptiion: %s" % exp
-        ret['err'] = 1
-        print(traceback.format_exc())
-    return JSONEncoder().encode(ret)
+#############################################
+#                 ROUTING                   #
+#############################################
+@app.route('/user/home')
+def user_home():
+    templateData = {'title': 'user home'}
+    return render_template("user/user.html", **templateData)
 
 
-###########################################
-#           save ball position            #
-###########################################
-@app.route('/save_ball_position')
-def save_ball_position():
-    return mdb.save_ball_position()
+@app.route('/user/playgame')
+def playgame():
+    templateData = {'title': 'playgame'}
+    return render_template("user/game.html", **templateData)
+
+
+@app.route('/user/result')
+def result1():
+    templateData = {'title': 'result'}
+    return render_template("user/game_result1.html", **templateData)
+
+
+@app.route('/user/work')
+def work1():
+    templateData = {'title': 'work'}
+    return render_template("user/work1.html", **templateData)
+
+
+@app.route('/user/signup')
+def user_signup():
+    templateData = {'title': 'signup'}
+    return render_template("user/signup.html", **templateData)
+
+
+@app.route('/user/login')
+def user_login():
+    templateData = {'title': 'login'}
+    return render_template("user/login.html", **templateData)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

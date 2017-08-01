@@ -3,18 +3,18 @@
 #
 
 from pymongo import MongoClient
+from config import *
 import traceback
 
 
 class Mdb:
 
     def __init__(self):
-        """
         conn_str = "mongodb://%s:%s@%s:%d/%s" \
-                 % (DB_USER, DB_PASS, DB_HOST, DB_PORT, AUTH_DB_NAME)
-        """
-        conn_str = 'mongodb://stbuser:stbpass@ds127531.' \
-                   'mlab.com:27531/spottheball'
+                    % (DB_USER, DB_PASS, DB_HOST, DB_PORT, AUTH_DB_NAME)
+
+        # conn_str = 'mongodb://stbuser:stbpass@ds127531.
+        # 'mlab.com:27531/spottheball'
         client = MongoClient(conn_str)
         self.db = client['spottheball']
 
@@ -56,10 +56,11 @@ class Mdb:
 ###########################################
 #          Add User in database           #
 ###########################################
-    def add_user(self, user, email, password):
+    def add_user(self, username, name, email, password):
         try:
             rec = {
-                'user': user,
+                'username': username,
+                'name': name,
                 'email': email,
                 'password': password
             }
