@@ -1,6 +1,7 @@
 import os
 from flask import Flask, request, render_template, redirect, \
     send_from_directory, url_for, session, flash
+from flask.ext.bcrypt import Bcrypt
 from functools import wraps
 import traceback
 import jwt
@@ -13,6 +14,7 @@ from bson import ObjectId
 from flask_login import login_user, login_required, logout_user, current_user
 
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 mdb = Mdb()
 
 
@@ -248,7 +250,10 @@ def add_user():
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
-        mdb.add_user(username, name, email, password)
+        pw_hash = bcrypt.generate_password_hash(password)
+        passw = bcrypt.check_password_hash(pw_hash, password)
+
+        mdb.add_user(username, name, email, pw_hash)
         print('User is added successfully')
         templateData = {'title': 'Signup Page'}
     except Exception as exp:
@@ -268,11 +273,16 @@ def login():
         sumSessionCounter()
         email = request.form['email']
         password = request.form['password']
-        if mdb.user_exists(email, password):
 
+        pw_hash = mdb.get_password(email)
+        print 'password in server, get from db class ', pw_hash
+        passw = bcrypt.check_password_hash(pw_hash, password)
+
+        if passw == True:
             name = mdb.get_name(email)
+            # name = mdb.get_name(email)
             session['name'] = name
-            session['email'] = email
+            # session['email'] = email
 
             # Login Successful!
             expiry = datetime.datetime.utcnow() + datetime.\
@@ -327,13 +337,13 @@ def playgame():
 @app.route('/user/result')
 def result1():
     templateData = {'title': 'result'}
-    return render_template("user/game_result1.html", **templateData)
+    return render_template("user/game_result.html", **templateData)
 
 
 @app.route('/user/work')
 def work1():
     templateData = {'title': 'work'}
-    return render_template("user/work1.html", **templateData)
+    return render_template("user/work.html", **templateData)
 
 
 @app.route('/user/signup')

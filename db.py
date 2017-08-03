@@ -10,11 +10,12 @@ import traceback
 class Mdb:
 
     def __init__(self):
-        conn_str = "mongodb://%s:%s@%s:%d/%s" \
-                    % (DB_USER, DB_PASS, DB_HOST, DB_PORT, AUTH_DB_NAME)
 
-        # conn_str = 'mongodb://stbuser:stbpass@ds127531.
-        # 'mlab.com:27531/spottheball'
+        # conn_str = "mongodb://%s:%s@%s:%d/%s" \
+          #          % (DB_USER, DB_PASS, DB_HOST, DB_PORT, AUTH_DB_NAME)
+
+        conn_str = 'mongodb://stbuser:stbpass@ds127531.
+         'mlab.com:27531/spottheball'
         client = MongoClient(conn_str)
         self.db = client['spottheball']
 
@@ -51,6 +52,8 @@ class Mdb:
             ret.append(data)
 
         return ret
+
+
 
 
 ###########################################
@@ -120,10 +123,37 @@ class Mdb:
         # return JSONEncoder().encode({'ball position': ret})
             return ret
 
+
+    def get_name(self, email):
+        result = self.db.user.find({'email': email})
+        name = ''
+        email = ''
+        if result:
+            for data in result:
+                name = data['name']
+                print '', name
+                email = data['email']
+        return name
+
+
+    def get_password(self, email):
+        result = self.db.user.find({'email': email})
+        name = ''
+        password = ''
+        if result:
+            for data in result:
+                print '', data
+                name = data['username']
+                print '', name
+                password = data['password']
+                print 'password in db class', password
+        return password
+
 if __name__ == "__main__":
     # quick test connecting to localdb
     mdb = Mdb()
     # mdb.add_game('56', '65', '789', '56', '98',
     # '123', '68', '57', '10', '11')
     # mdb.save_ball_position('1', '22', '33')
-    mdb.get_ball_position('1')
+    # mdb.get_ball_position('1')
+    mdb.get_password('tom@gmail.com')

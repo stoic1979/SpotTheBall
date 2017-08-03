@@ -28,22 +28,13 @@
         <li><a href="/user/game_result">GAME RESULT</a></li>
         <li><a href="/user/work">HOW IT WORKS</a></li>
       </ul>
-
-              <ul class="nav navbar-nav navbar-right">
-                  {% if session['name'] %} <a href="{{ url_for('clearsession') }}">Logout</a>
-
-        {% else %}        <li><a href="/user/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>{% endif %}
-
-              </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/user/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
   </div>
 </nav>
-               {% if session['name'] %}Welcome :&emsp;{{session['name']}}
-
-
-        {% else %}
-                   {% endif %}
-<br><br><br><br>
 
 <div class="container">
   <div class="row">
@@ -51,11 +42,14 @@
     <div class="col-sm-12">
 
 <div class="jumbotron text-center">
+  <h3>HOW IT WORKS</h3>
 
-    <div id="signup" class="span3 well well-large offset4"><br><br>
+  <p>Only when the button is clicked, the navigation bar will be displayed.</p>
 
-<br><br>
 </div>
-</div>
-    </div></div></div></body>
+    </div>
+    </div></div>
+
+
+</body>
 </html>
