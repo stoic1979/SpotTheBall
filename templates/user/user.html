@@ -30,7 +30,9 @@
       </ul>
 
               <ul class="nav navbar-nav navbar-right">
-                  {% if session['name'] %} <a href="{{ url_for('clearsession') }}">Logout</a>
+                  {% if session['name'] %}
+            <li><a href="{{ url_for('clearsession') }}"><span class="glyphicon glyphicon-log-out">&nbsp;</span>Logout</a></li>
+
 
         {% else %}        <li><a href="/user/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
         <li><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>{% endif %}

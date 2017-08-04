@@ -11,10 +11,10 @@ class Mdb:
 
     def __init__(self):
 
-        # conn_str = "mongodb://%s:%s@%s:%d/%s" \
-          #          % (DB_USER, DB_PASS, DB_HOST, DB_PORT, AUTH_DB_NAME)
+        conn_str = "mongodb://%s:%s@%s:%d/%s" \
+                  % (DB_USER, DB_PASS, DB_HOST, DB_PORT, AUTH_DB_NAME)
 
-        conn_str = 'mongodb://stbuser:stbpass@ds127531.mlab.com:27531/spottheball'
+        conn_str = 'mongodb://stbuser:stbpass@ds127531mlab.com:27531/spottheball'
         client = MongoClient(conn_str)
         self.db = client['spottheball']
 
@@ -51,8 +51,6 @@ class Mdb:
             ret.append(data)
 
         return ret
-
-
 
 
 ###########################################
@@ -122,7 +120,6 @@ class Mdb:
         # return JSONEncoder().encode({'ball position': ret})
             return ret
 
-
     def get_name(self, email):
         result = self.db.user.find({'email': email})
         name = ''
@@ -133,7 +130,6 @@ class Mdb:
                 print '', name
                 email = data['email']
         return name
-
 
     def get_password(self, email):
         result = self.db.user.find({'email': email})
