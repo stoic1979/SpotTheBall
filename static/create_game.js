@@ -140,7 +140,7 @@ function onClick(evt) {
 		x1 = document.getElementById("ball_x");
 	    y1 = document.getElementById("ball_y");
 		ballX = x - ballWidth/2;
-		ballY = y - ballHeight/2;		
+		ballY = y - ballHeight/2;
 	}
 
     x1.value = "" + x;

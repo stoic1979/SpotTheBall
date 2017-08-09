@@ -1,66 +1,3 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-<head>
-  <title>SPOT THE BALL</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<body>
-
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/user/home">SPOT THE BALL</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-
-            <ul class="nav navbar-nav">
-
-        <li><a href="/user/playgame">PLAY GAME</a></li>
-        <li><a href="/user/game_result">GAME RESULT</a></li>
-        <li><a href="/user/work">HOW IT WORKS</a></li>
-      </ul>
-        <ul class="nav navbar-nav navbar-right">
-                  {% if session['name'] %}
-            <li><a href="{{ url_for('clearsession') }}"><span class="glyphicon glyphicon-log-out">&nbsp;</span>Logout</a></li>
-
-        {% else %}        <li><a href="/user/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>{% endif %}
-
-              </ul>
-  </div>
-</nav>
-<div class="container">
-  <div class="row">
-
-    <div class="col-sm-12">
-
-<div class="jumbotron text-center">
-
-
-
-        <img id="bg" width="0" height="0" src="static/image/3.jpg" alt="Game Background">
-        <img id="ball" width="0" height="0" src="{{ url_for('static', filename='images/ball.png') }}" alt="Ball">
-
-<img id="ball" width="0" height="0" src="../static/images/ball.png" alt="Ball">
-
-
-
-        <canvas id="myCanvas" width="1050" height="660" style="border:1px solid #d3d3d3;">
-            Your browser does not support the HTML5 canvas tag.
-        </canvas>
-
-        <script>
-
-
 //####################//
 //                    //
 //        class       //
@@ -71,7 +8,6 @@ function Point(x,y)
     this.x = x;
     this.y = y;
 }
-
 var currentGame;
 
 var canvas  = canvas = document.getElementById("myCanvas");
@@ -92,9 +28,9 @@ var imgBall = document.getElementById("ball");
 // }, false);
 
 
-var ball = new Point(365, 133);
-ball.width = 80;
-ball.height = 80;
+//var ball = new Point(365, 133);
+//ball.width = 80;
+//ball.height = 80;
 
 
 //####################//
@@ -130,17 +66,12 @@ function getMousePos(canvas, evt) {
     };
 }
 
-
-
-
 //#################################################################//
 //                                                                 //
 //    canvas.addEventListener("keydown", handleKeyDown, true);     //
 //                                                                 //
 //#################################################################//
 function drawScene() {
-
-
 
     console.log("Canvas: " + canvas.width + "X" + canvas.height);
 
@@ -316,15 +247,3 @@ game = {
 
  */
 
-
-
-        </script>
-    </div>
-    </div>
-    </div></div>
-       <center><button type="button" class="btn btn-success">DONE</button></center>
-
-
-
-</body>
-</html>

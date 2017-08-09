@@ -17,7 +17,6 @@ app = Flask(__name__)
 bcrypt = Bcrypt(app)
 mdb = Mdb()
 
-
 app.config['secretkey'] = 'some-strong+secret#key'
 app.secret_key = 'F12Zr47j\3yX R~X@H!jmM]Lwf/,?KT'
 
@@ -50,7 +49,8 @@ class JSONEncoder(json.JSONEncoder):
 
 @app.route('/')
 def home():
-    return 'Welcome to Spot The Ball'
+    templateData = {'title': 'admin home'}
+    return render_template("admin/admin_login.html", **templateData)
 
 
 #########################################
@@ -148,7 +148,7 @@ def add_game():
     try:
         file = request.files['pic']
 
-        filename = ""
+        filename = "3.jpg"
 
         # if user does not select file, browser also
         # submit a empty part without filename
@@ -201,6 +201,12 @@ def save_ball_position():
 #                                                                             #
 #                                                                             #
 ###############################################################################
+@app.route('/admin_login/')
+def admin1():
+    templateData = {'title': 'admin home'}
+    return render_template("admin/admin_login.html", **templateData)
+
+
 @app.route('/admin/home')
 def admin():
     templateData = {'title': 'admin home'}
@@ -263,6 +269,38 @@ def add_user():
 
 
 #############################################
+#                 LOGIN ADMIN                #
+#############################################
+@app.route('/login1', methods=['POST'])
+def login1():
+
+    ret = {'err': 0}
+    try:
+        email = request.form['email']
+        password = request.form['password']
+        mail = 'tom@gmail.com'
+        pswd = '123'
+        # pw_hash = mdb.get_password(email)
+        # print 'password in server, get from db class ', pw_hash
+        # passw = bcrypt.check_password_hash(pw_hash, password)
+
+        if email == mail and password == pswd:
+            # return 'login successfull'
+            return render_template('admin/admin.html', session=session)
+        else:
+            return render_template('admin/admin_login.html', session=session)
+            # return 'login failed'
+
+
+    except Exception as exp:
+        ret['msg'] = '%s' % exp
+        ret['err'] = 1
+        print(traceback.format_exc())
+        # return jsonify(ret)
+
+
+
+#############################################
 #                 LOGIN USER                #
 #############################################
 @app.route('/login', methods=['POST'])
@@ -270,6 +308,7 @@ def login():
 
     ret = {'err': 0}
     try:
+
         sumSessionCounter()
         email = request.form['email']
         password = request.form['password']
@@ -296,7 +335,7 @@ def login():
             templateData = {'title': 'singin page'}
         else:
             # Login Failed!
-            return render_template('/user/login.html', session=session)
+            return render_template('/user/login.html', **templateData)
 
             ret['msg'] = 'Login Failed'
             ret['err'] = 1
@@ -319,43 +358,54 @@ def clearsession():
     # return redirect(request.form('/signin'))
 
 
+@app.route('/clear1')
+def clearsession1():
+    return render_template('admin/admin_login.html', session=session)
+
+
 #############################################
 #                 ROUTING                   #
 #############################################
+@app.route('/user/')
+def user1():
+    templateData = {'title': 'user home'}
+    return render_template("user/user.html", session=session)
+
+
 @app.route('/user/home')
 def user_home():
     templateData = {'title': 'user home'}
-    return render_template("user/user.html", **templateData)
+    return render_template("user/user.html", session=session)
 
 
 @app.route('/user/playgame')
 def playgame():
     templateData = {'title': 'playgame'}
-    return render_template("user/game.html", **templateData)
+    return render_template("user/game.html", session=session)
 
 
-@app.route('/user/result')
+@app.route('/user/game_result')
 def result1():
     templateData = {'title': 'result'}
-    return render_template("user/game_result.html", **templateData)
+    return render_template("user/game_result.html", session=session)
 
 
 @app.route('/user/work')
 def work1():
     templateData = {'title': 'work'}
-    return render_template("user/work.html", **templateData)
+    return render_template("user/work.html", session=session)
 
 
 @app.route('/user/signup')
 def user_signup():
     templateData = {'title': 'signup'}
-    return render_template("user/signup.html", **templateData)
+    return render_template("user/signup.html", session=session)
 
 
 @app.route('/user/login')
 def user_login():
     templateData = {'title': 'login'}
-    return render_template("user/login.html", **templateData)
+    return render_template("user/login.html", session=session)
 
 
 if __name__ == '__main__':

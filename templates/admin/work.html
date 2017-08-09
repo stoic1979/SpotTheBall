@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+
 <head>
   <title>SPOT THE BALL</title>
   <meta charset="utf-8">
@@ -27,24 +27,28 @@
         <li><a href="/admin/game_result">GAME RESULT</a></li>
         <li><a href="/admin/work">HOW IT WORKS</a></li>
       </ul>
+               <ul class="nav navbar-nav navbar-right">
 
+            <li><a href="{{ url_for('clearsession1') }}"><span class="glyphicon glyphicon-log-out">&nbsp;</span>Logout</a></li>
+        </ul>
     </div>
   </div>
 </nav>
 
 <div class="container">
   <div class="row">
+      <div class="col-sm-12">
+          <div class="jumbotron text-center">
 
-    <div class="col-sm-12">
-
-<div class="jumbotron text-center">
-  <h3>how it work</h3>
-
-  <p>Only when the button is clicked, the navigation bar will be displayed.</p>
-
+<video width="600" controls>
+  <source src="static/vedio/v.mp4" type="video/mp4">
+  <source src="mov_bbb.ogg" type="video/ogg">
+  Your browser does not support HTML5 video.
+</video>
+          </div>
+      </div>
+  </div>
 </div>
-    </div>
-    </div></div>
 
 
 
