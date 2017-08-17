@@ -144,29 +144,8 @@ def save_img():
 @app.route('/add_game', methods=['POST'])
 def add_game():
 
-    prefix = request.base_url[:-len('/add_game')]
-
     ret = {}
     try:
-
-
-        """
-        file = request.files['pic']
-
-        filename = ""
-
-        # if user does not select file, browser also
-        # submit a empty part without filename
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            pic = '%s/%s' % (file_path, filename)
-
-        """
-
         x1 = request.form['x1']
         y1 = request.form['y1']
         x2 = request.form['x2']
@@ -178,13 +157,9 @@ def add_game():
         ball_x = request.form['ball_x']
         ball_y = request.form['ball_y']
 
-        #print "file_path:", file_path
+        bg_img = request.form['bgImg']
 
-        #save_file_url = "%s/uploads/%s" % (prefix, filename)
-
-        bgImg = request.form['bgImg']
-
-        mdb.add_game(bgImg, x1, y1, x2, y2,
+        mdb.add_game(bg_img, x1, y1, x2, y2,
                      x3, y3, x4, y4, ball_x, ball_y)
         ret['error'] = 0
         ret['msg'] = 'Game is stored successfully'
@@ -192,7 +167,8 @@ def add_game():
         ret['error'] = 1
         ret['msg'] = exp
         print(traceback.format_exc())
-    return json.dumps(ret)
+    tmpl_data = {'status': ret}
+    return render_template('admin/game_saved.html', **tmpl_data)
 
 
 ###########################################

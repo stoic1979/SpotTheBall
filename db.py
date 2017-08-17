@@ -5,6 +5,7 @@
 from pymongo import MongoClient
 from config import *
 import traceback
+import datetime
 
 
 class Mdb:
@@ -24,6 +25,7 @@ class Mdb:
 
     def add_game(self, pic, x1, y1, x2, y2, x3, y3, x4, y4, ball_x, ball_y):
         try:
+            ts = datetime.utcnow()
             rec = {
                 'pic': pic,
                 'eyes': [
@@ -34,7 +36,8 @@ class Mdb:
                 ],
                 'ball': [
                     {'x': ball_x, 'y': ball_y}
-                ]
+                ],
+                'timestamp': ts
             }
             self.db.game.insert(rec)
             return True, "Success"
