@@ -47,7 +47,7 @@ class JSONEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, o)
 
 
-@app.route('/')
+@app.route('/admin')
 def home():
     templateData = {'title': 'admin home'}
     return render_template("admin/admin_login.html", **templateData)
@@ -101,10 +101,10 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@app.route('/create_game', methods=['POST'])
+@app.route('/admin/create_game', methods=['POST'])
 def save_img():
 
-    prefix = request.base_url[:-len('/create_game')]
+    prefix = request.base_url[:-len('/admin/create_game')]
 
     ret = {}
     try:
@@ -126,8 +126,10 @@ def save_img():
 
         save_file_url = "%s/uploads/%s" % (prefix, filename)
 
+        print "save_file_url: ", save_file_url
+
         templateData = {'imgGame': save_file_url, 'title': 'Create Game'}
-        return render_template("create_game.html", **templateData)
+        return render_template("admin/create_game.html", **templateData)
 
     except Exception as exp:
         ret['error'] = 1
@@ -146,9 +148,12 @@ def add_game():
 
     ret = {}
     try:
+
+
+        """
         file = request.files['pic']
 
-        filename = "3.jpg"
+        filename = ""
 
         # if user does not select file, browser also
         # submit a empty part without filename
@@ -159,6 +164,8 @@ def add_game():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             pic = '%s/%s' % (file_path, filename)
+
+        """
 
         x1 = request.form['x1']
         y1 = request.form['y1']
@@ -171,11 +178,13 @@ def add_game():
         ball_x = request.form['ball_x']
         ball_y = request.form['ball_y']
 
-        print "file_path:", file_path
+        #print "file_path:", file_path
 
-        save_file_url = "%s/uploads/%s" % (prefix, filename)
+        #save_file_url = "%s/uploads/%s" % (prefix, filename)
 
-        mdb.add_game(save_file_url, x1, y1, x2, y2,
+        bgImg = request.form['bgImg']
+
+        mdb.add_game(bgImg, x1, y1, x2, y2,
                      x3, y3, x4, y4, ball_x, ball_y)
         ret['error'] = 0
         ret['msg'] = 'Game is stored successfully'
@@ -213,7 +222,12 @@ def admin():
     return render_template("admin/admin.html", **templateData)
 
 
-@app.route('/admin/create_game')
+@app.route('/admin/add_game_img')
+def add_game_img():
+    templateData = {'title': 'Add game image'}
+    return render_template("admin/add_game_img.html", **templateData)
+
+@app.route('/admin/create_game1111')
 def create_game():
     templateData = {'title': 'create game'}
     return render_template("admin/create_game.html", **templateData)

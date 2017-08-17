@@ -43,7 +43,7 @@
     <div class="col-sm-12">
 
 <div class="jumbotron text-center">
-<img id="bg" width="0" height="" src="../static/images/3.jpg">
+<img id="bg" width="0" height="" src="{{ imgGame }}">
 <img id="ball" width="0" height="0" src="../static/images/ball.png" alt="Ball">
 
 <canvas id="myCanvas" width="1050" height="660">
@@ -64,6 +64,9 @@
             </tr>
             <tr>
                 <th>Face-1 :</th><th>
+
+                    <input type="hidden" name="bgImg" value="{{ imgGame }}">
+
                     <input type="text" id="x1" name="x1" size="10" onclick="setSelectedItem('EYE', 1)" oninput="handleTextChanged('EYE', 1)" required="">
                     <input type="text" id ="y1" name="y1" size="10" onclick="setSelectedItem('EYE', 1)"  oninput="handleTextChanged('EYE', 1)" required="">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
