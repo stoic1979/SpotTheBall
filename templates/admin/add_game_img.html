@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-
+<html lang="en">
 <head>
   <title>SPOT THE BALL</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryython /3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="{{url_for('static', filename='create_game.js')}}"></script>
+
 </head>
 <body>
 
@@ -27,7 +29,7 @@
         <li><a href="/admin/game_result">GAME RESULT</a></li>
         <li><a href="/admin/work">HOW IT WORKS</a></li>
       </ul>
-               <ul class="nav navbar-nav navbar-right">
+           <ul class="nav navbar-nav navbar-right">
 
             <li><a href="{{ url_for('clearsession1') }}"><span class="glyphicon glyphicon-log-out">&nbsp;</span>Logout</a></li>
         </ul>
@@ -37,20 +39,32 @@
 
 <div class="container">
   <div class="row">
-      <div class="col-sm-12">
-          <div class="jumbotron text-center">
 
-<video width="600" controls>
-  <source src="static/vedio/v.mp4" type="video/mp4">
-  <source src="mov_bbb.ogg" type="video/ogg">
-  Your browser does not support HTML5 video.
-</video>
-          </div>
-      </div>
-  </div>
+    <div class="col-sm-12">
+
+<div class="jumbotron text-center">
+<h4>SPOT THE BALL</h4><br><br>
+    <div id="login" class="span3 well well-large offset4">
+        <h5>ADD IMAGE</h5><br>
+        <center>
+        <form action="/admin/create_game" method="post" enctype=multipart/form-data>
+        <table>
+            <tr>
+                <th>Add Image :&nbsp;&nbsp;&nbsp;</th>
+                <th><input type="file" name="pic" id="pic"></th>
+            </tr>
+            <tr>
+                <td>
+                <input type="submit" value="SUBMIT">
+                </td>
+            </tr>
+
+        </table>
+        </form>
+        </center>
+    </div>
+
 </div>
-
-
-
+    </div></div></div>
 </body>
 </html>
