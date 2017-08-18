@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #
 # Database manager for handling transactions with mongodb
 #
@@ -157,3 +158,5 @@ if __name__ == "__main__":
     # mdb.save_ball_position('1', '22', '33')
     # mdb.get_ball_position('1')
     mdb.get_password('tom@gmail.com')
+=======
+>>>>>>> 2a3ed7aefbabcda0eb93be9a6466c5f47a6122f7

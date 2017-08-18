@@ -192,12 +192,15 @@ def admin1():
     return render_template("admin/admin_login.html", **templateData)
 
 
+<<<<<<< HEAD
 @app.route('/admin/test_page')
 def test_page():
     templateData = {'title': 'admin home'}
     return render_template("admin/test_page.html", **templateData)
 
 
+=======
+>>>>>>> 2a3ed7aefbabcda0eb93be9a6466c5f47a6122f7
 @app.route('/admin/home')
 def admin():
     templateData = {'title': 'admin home'}
@@ -356,6 +359,10 @@ def clearsession():
 
 @app.route('/clear1')
 def clearsession1():
+<<<<<<< HEAD
+=======
+    session.clear()
+>>>>>>> 2a3ed7aefbabcda0eb93be9a6466c5f47a6122f7
     return render_template('admin/admin_login.html', session=session)
 
 
