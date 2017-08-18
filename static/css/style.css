@@ -1,8 +1,8 @@
 #login
     {
     margin-top: 10%;
-    margin-right: 20%;
-    margin-left: 20%;
+    margin-right: 5%;
+    margin-left: 5%;
     box-shadow: 0 0 18px #ccc;
     }
   h1
@@ -21,7 +21,7 @@ body
     background: #fffeea;
     font-family: vardana;
     color:black;
-    padding: 30px
+    padding: 0px
  }
 
 h4
@@ -41,5 +41,3 @@ h2
  text-align: left;
  color: green;
  }
-
-

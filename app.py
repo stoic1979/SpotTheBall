@@ -192,6 +192,12 @@ def admin1():
     return render_template("admin/admin_login.html", **templateData)
 
 
+@app.route('/admin/test_page')
+def test_page():
+    templateData = {'title': 'admin home'}
+    return render_template("admin/test_page.html", **templateData)
+
+
 @app.route('/admin/home')
 def admin():
     templateData = {'title': 'admin home'}
