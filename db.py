@@ -25,7 +25,7 @@ class Mdb:
 
     def add_game(self, pic, x1, y1, x2, y2, x3, y3, x4, y4, ball_x, ball_y):
         try:
-            ts = datetime.utcnow()
+            ts = datetime.datetime.utcnow()
             rec = {
                 'pic': pic,
                 'eyes': [
