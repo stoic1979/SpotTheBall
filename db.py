@@ -15,7 +15,6 @@ class Mdb:
         # conn_str = "mongodb://%s:%s@%s:%d/%s" \
         #           % (DB_USER, DB_PASS, DB_HOST, DB_PORT, AUTH_DB_NAME)
 
-
         conn_str = 'mongodb://stbuser:stbpass@ds127531.' \
                    'mlab.com:27531/spottheball'
         client = MongoClient(conn_str)
@@ -60,9 +59,9 @@ class Mdb:
     def get_user_game(self):
         collection = self.db['game']
         result = collection.find().skip(self.db.game.count()-1)
-        ret = []
+        ret = None
         for data in result:
-            ret.append(data)
+            ret = data
         return ret
 
 ###########################################
@@ -93,7 +92,6 @@ class Mdb:
                 'password': password
             }
             self.db.admin.insert(rec)
-
 
         except Exception as exp:
             print "login() :: Got exception: %s", exp

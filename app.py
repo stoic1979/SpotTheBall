@@ -11,7 +11,8 @@ from db import Mdb
 import json
 import jsonify
 from bson import ObjectId
-from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from flask_login import LoginManager, login_user, login_required, logout_user,\
+    current_user
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -20,13 +21,12 @@ mdb = Mdb()
 app.config['secretkey'] = 'some-strong+secret#key'
 app.secret_key = 'F12Zr47j\3yX R~X@H!jmM]Lwf/,?KT'
 
+
 #############################################
 #                                           #
 #                SESSION COUNTER            #
 #                                           #
 #############################################
-
-
 def sumSessionCounter():
     try:
         session['counter'] += 1
@@ -58,8 +58,7 @@ def unauthorized_callback():
 
 @app.route('/admin')
 def home():
-    templateData = {'title': 'admin home'}
-    return render_template("admin/admin_login.html", **templateData)
+    return render_template("admin/admin_login.html", session=session)
 
 
 #########################################
@@ -197,38 +196,33 @@ def save_ball_position():
 ###############################################################################
 @app.route('/admin_login/')
 def admin1():
-    templateData = {'title': 'admin home'}
-    return render_template("admin/admin_login.html", **templateData)
+    return render_template("admin/admin_login.html", session=session)
 
 
 @app.route('/admin/home')
 def admin():
-    templateData = {'title': 'admin home'}
-    return render_template("admin/admin.html", **templateData)
+    return render_template("admin/admin.html", session=session)
 
 
 @app.route('/admin/add_game_img')
-
 def add_game_img():
-    templateData = {'title': 'Add game image'}
-    return render_template("admin/add_game_img.html", **templateData)
+    return render_template("admin/add_game_img.html", session=session)
+
 
 @app.route('/admin/create_game1111')
 def create_game():
-    templateData = {'title': 'create game'}
-    return render_template("admin/create_game.html", **templateData)
+    return render_template("admin/create_game.html", session=session)
 
 
 @app.route('/admin/game_result')
 def result():
     templateData = {'title': 'game result'}
-    return render_template("admin/game_result.html", **templateData)
+    return render_template("admin/game_result.html", session=session)
 
 
 @app.route('/admin/work')
 def work():
-    templateData = {'title': 'how it work'}
-    return render_template("admin/work.html", **templateData)
+    return render_template("admin/work.html", session=session)
 
 
 ###############################################################################
@@ -250,10 +244,8 @@ def add_user():
         password = request.form['password']
         pw_hash = bcrypt.generate_password_hash(password)
         passw = bcrypt.check_password_hash(pw_hash, password)
-
         mdb.add_user(username, name, email, pw_hash)
         print('User is added successfully')
-        templateData = {'title': 'Signup Page'}
     except Exception as exp:
         print('add_user() :: Got exception: %s' % exp)
         print(traceback.format_exc())
@@ -287,7 +279,7 @@ def admin_login():
             templateData = {'title': 'singin page'}
             # Login Failed!
             return render_template('/admin.html', **templateData)
-            # return "LOgin faild"
+            # return "Login faild"
             ret['msg'] = 'Login Failed'
             ret['err'] = 1
 
@@ -368,55 +360,52 @@ def clearsession1():
 #############################################
 @app.route('/user/')
 def user1():
-    templateData = {'title': 'user home'}
     return render_template("user/user.html", session=session)
 
 
 @app.route('/user/home')
 def user_home():
-    templateData = {'title': 'user home'}
     return render_template("user/user.html", session=session)
 
 
-@app.route('/user/playgame')
-def playgame():
-    get_game = mdb.get_user_game()
+
+@app.route('/admin/get_current_game')
+def get_current_game():
+    game = mdb.get_user_game()
     ret = []
     item = {}
-    for game in get_game:
-        item['eyes'] = game['eyes']
-        # item['timestamp'] = game['timestamp']
-        item['pic'] = game['pic']
-        item['_id'] = game['_id']
-        item['ball'] = game['ball']
+    item['eyes'] = game['eyes']
+    item['pic'] = game['pic']
+    item['_id'] = game['_id']
+    item['ball'] = game['ball']
+    print ("item: %s" % item)
+    return JSONEncoder().encode({'game': item})
 
-        ret.append(item)
-    return JSONEncoder().encode({'game': ret})
-    # templateData = {'title': 'playgame', 'game': get_game}
-    # return render_template("user/game.html", session=session, **templateData)
+@app.route('/user/playgame')
+def playgame():
+    game = mdb.get_user_game()
+    print ("game: %s" % game)
+    templateData = {'title': 'playgame', 'game': game}
+    return render_template("user/game.html", session=session, **templateData)
 
 
 @app.route('/user/game_result')
 def result1():
-    templateData = {'title': 'result'}
     return render_template("user/game_result.html", session=session)
 
 
 @app.route('/user/work')
 def work1():
-    templateData = {'title': 'work'}
     return render_template("user/work.html", session=session)
 
 
 @app.route('/user/signup')
 def user_signup():
-    templateData = {'title': 'signup'}
     return render_template("user/signup.html", session=session)
 
 
 @app.route('/user/login')
 def user_login():
-    templateData = {'title': 'login'}
     return render_template("user/login.html", session=session)
 
 

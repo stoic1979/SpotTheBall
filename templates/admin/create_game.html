@@ -2,6 +2,7 @@
 {% block title %}Admin page{% endblock %}
 {% block head %}
   {{ super() }}
+      <script src="{{url_for('static', filename='create_game.js')}}"></script>
 
 {% endblock %}
 {% block content %}
