@@ -22,16 +22,24 @@ class Mdb:
 
         print "[Mdb] connected to database :: ", self.db
 
-    def add_game(self, pic, x1, y1, x2, y2, x3, y3, x4, y4, ball_x, ball_y):
+    def add_game(self, pic, x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6, x7, y7, x8, y8, ball_x, ball_y):
         try:
             ts = datetime.datetime.utcnow()
             rec = {
                 'pic': pic,
+
+
                 'eyes': [
                     {'x': x1, 'y': y1},
+
+
                     {'x': x2, 'y': y2},
                     {'x': x3, 'y': y3},
-                    {'x': x4, 'y': y4}
+                    {'x': x4, 'y': y4},
+                    {'x': x5, 'y': y5},
+                    {'x': x6, 'y': y6},
+                    {'x': x7, 'y': y7},
+                    {'x': x8, 'y': y8}
                 ],
                 'ball': [
                     {'x': ball_x, 'y': ball_y}

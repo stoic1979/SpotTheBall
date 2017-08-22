@@ -162,13 +162,22 @@ def add_game():
         y3 = request.form['y3']
         x4 = request.form['x4']
         y4 = request.form['y4']
+        x5 = request.form['x5']
+        y5 = request.form['y5']
+        x6 = request.form['x6']
+        y6 = request.form['y6']
+        x7 = request.form['x7']
+        y7 = request.form['y7']
+        x8 = request.form['x8']
+        y8 = request.form['y8']
+
         ball_x = request.form['ball_x']
         ball_y = request.form['ball_y']
 
         bg_img = request.form['bgImg']
 
         mdb.add_game(bg_img, x1, y1, x2, y2,
-                     x3, y3, x4, y4, ball_x, ball_y)
+                     x3, y3, x4, y4, x5, y5, x6, y6, x7, y7, x8, y8, ball_x, ball_y)
         ret['error'] = 0
         ret['msg'] = 'Game is stored successfully'
     except Exception as exp:
@@ -388,6 +397,15 @@ def playgame():
     templateData = {'title': 'playgame', 'game': game}
     return render_template("user/game.html", session=session, **templateData)
 
+
+@app.route('/get_ball_position', methods=['POST'])
+def get_ball_position():
+    try:
+        print "+++++++++", request.form
+    except Exception as exp:
+        print "get_ball_position() :: Got exception: %s" % exp
+        print(traceback.format_exc())
+    return "hii its done"
 
 @app.route('/user/game_result')
 def result1():
