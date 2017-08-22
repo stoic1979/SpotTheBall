@@ -1,31 +1,43 @@
 {% extends "admin/admin_base.html" %}
 {% block title %}Add game img{% endblock %}
 {% block head %}
-  {{ super() }}
-  <style type="text/css">
-    .important { color: #336699; }
-  </style>
+{{ super() }}
+
 {% endblock %}
 {% block content %}
+    {% if session['name'] %}
 
+    {% else %} <p style="color: red;">Please login first...</p>
 
-    <p class="important">
-        <h5>ADD IMAGE</h5><br>
-        <center>
+    {% endif %}
+  <!--div class="container">
+  <!--div class="row">
+  <div class="col-sm-12"-->
+
+    <div class="jumbotron text-center">
+        <div id="signup" class="span3 well well-large offset4">
+
+            <p class="important">
+            <h5>ADD IMAGE</h5><br><br><br><br><br><br>
+
+            <center>
             <form action="/admin/create_game" method="post" enctype=multipart/form-data>
                 <table>
-                    <tr>
+                    <tr><br>
                         <th>Add Image :&nbsp;&nbsp;&nbsp;</th>
-                        <th>
-                            <input type="file" name="pic" id="pic"></th>
+                        <th><input type="file" name="pic" id="pic"></th>
                     </tr>
                     <tr>
-                        <td>
+                        <th>
+                        </th>
+                        <th><br><br><br>
                             <input type="submit" value="SUBMIT">
-                        </td>
+                        </th>
                     </tr>
                 </table>
             </form>
-        </center>
-    </p>
+                <br><br><br><br><br><br><br>
+
+        </center><br>
+    </p></div></div>
 {% endblock %}

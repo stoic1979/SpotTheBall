@@ -1,32 +1,48 @@
 {% extends "user/user_base.html" %}
-{% block title %}Work Page{% endblock %}
+{% block title %}Play game Page{% endblock %}
 {% block head %}
   {{ super() }}
 
 {% endblock %}
 {% block content %}
+    {% if session['name'] %}
 
+    {% else %} <p style="color: red;">Please login first...</p>
 
+    {% endif %}
+
+<!--div class="container"><div class="row"-->
+<!--<div class="col-sm-12">-->
+<div class="jumbotron text-center">
+<div id="signup" class="span3 well well-large offset4">
 <p class="important">
 
 
-  <h3>HOW IT WORKS</h3>
+  <h3>GAME</h3>
 
-
+<!--
         <img id="bg" width="0" height="0" src="static/image/3.jpg" alt="Game Background">
         <img id="ball" width="0" height="0" src="{{ url_for('static', filename='images/ball.png') }}" alt="Ball">
-
-<img id="ball" width="0" height="0" src="../static/images/ball.png" alt="Ball">
-
-
-
-        <canvas id="myCanvas" width="1050" height="660" style="border:1px solid #d3d3d3;">
-            Your browser does not support the HTML5 canvas tag.
-        </canvas>
-
-        <script>
+        <img id="ball" width="0" height="0" src="../static/images/ball.png" alt="Ball">
+-->
 
 
+<img id="bg" width="0" height="" src="{{ game.pic}}">
+<img id="ball" width="0" height="0" src="{{ game.ball }}" alt="Ball">
+
+<canvas id="myCanvas" width="1050" height="660">
+</canvas>
+
+        <!---->
+        <!--<img id="bg" width="0" height="0" src={{ game.pic }} alt="Game Background">-->
+        <!--<img id="ball" width="0" height="0" src="{{ url_for('static', filename='images/ball.png') }}" alt="Ball">-->
+        <!--<img id="ball" width="0" height="0" src="../static/images/ball.png" alt="Ball">-->
+
+        <!---->
+
+
+
+<!--script>
 //####################//
 //                    //
 //        class       //
@@ -282,12 +298,12 @@ game = {
 
  */
 
+</script-->
 
 
-        </script>
 
        <center><button type="button" class="btn btn-success">DONE</button></center>
 
 
-</p>
+</p></div></div>
 {% endblock %}

@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <script src="{{url_for('static', filename='create_game.js')}}"></script>
      {% block head %}{% endblock %}
   </head>
   <body>
@@ -30,25 +32,25 @@
             <li><a href="/admin/work">HOW IT WORKS</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="{{ url_for('clearsession1') }}"><span class="glyphicon glyphicon-log-out">&nbsp;</span>Logout</a></li>
+
+              {% if session['name'] %}
+              <li><a href="{{ url_for('clearsession1') }}"><span class="glyphicon glyphicon-log-out">&nbsp;</span>Logout</a></li>
+              {% else %}
+              <li><a href="/admin_login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+              {% endif %}
+
           </ul>
+
         </div>
     </div>
   </nav>
   <!----------------------------- NAVIGATION BAR ENDS ----------------------------->
 
 
-  <div class="container">
-      <div class="row">
-          <div class="col-sm-12">
-             <div class="jumbotron text-center">
-                 <div id="signup" class="span3 well well-large offset4">
+
                    {% block content %}{% endblock %}
-                 </div>
-             </div>
-          </div>
-      </div>
-  </div>
+
+
 
   <!----------------------------- FOOTER ----------------------------->
     <div id="footer">

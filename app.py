@@ -11,7 +11,7 @@ from db import Mdb
 import json
 import jsonify
 from bson import ObjectId
-from flask_login import login_user, login_required, logout_user, current_user
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -45,6 +45,15 @@ class JSONEncoder(json.JSONEncoder):
         if isinstance(o, ObjectId):
             return str(o)
         return json.JSONEncoder.default(self, o)
+
+# setup Login Manager
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+    return redirect('/admin_login/')
 
 
 @app.route('/admin')
@@ -192,15 +201,6 @@ def admin1():
     return render_template("admin/admin_login.html", **templateData)
 
 
-<<<<<<< HEAD
-@app.route('/admin/test_page')
-def test_page():
-    templateData = {'title': 'admin home'}
-    return render_template("admin/test_page.html", **templateData)
-
-
-=======
->>>>>>> 2a3ed7aefbabcda0eb93be9a6466c5f47a6122f7
 @app.route('/admin/home')
 def admin():
     templateData = {'title': 'admin home'}
@@ -208,6 +208,7 @@ def admin():
 
 
 @app.route('/admin/add_game_img')
+
 def add_game_img():
     templateData = {'title': 'Add game image'}
     return render_template("admin/add_game_img.html", **templateData)
@@ -228,14 +229,6 @@ def result():
 def work():
     templateData = {'title': 'how it work'}
     return render_template("admin/work.html", **templateData)
-
-
-@app.route('/admin/login', methods=['POST'])
-def admin_login():
-    email = request.form['email']
-    password = request.form['password']
-    templateData = {'title': 'admin_dashboard'}
-    return render_template("works.html", **templateData)
 
 
 ###############################################################################
@@ -268,35 +261,42 @@ def add_user():
 
 
 #############################################
-#                 LOGIN ADMIN                #
+#                 LOGIN ADMIN               #
 #############################################
-@app.route('/login1', methods=['POST'])
-def login1():
-
+@app.route('/admin_login', methods=['POST'])
+def admin_login():
     ret = {'err': 0}
     try:
+
+        sumSessionCounter()
         email = request.form['email']
         password = request.form['password']
-        mail = 'tom@gmail.com'
-        pswd = '123'
-        # pw_hash = mdb.get_password(email)
-        # print 'password in server, get from db class ', pw_hash
-        # passw = bcrypt.check_password_hash(pw_hash, password)
 
-        if email == mail and password == pswd:
-            # return 'login successfull'
+        if mdb.admin_exists(email, password):
+            name = mdb.get_name(email)
+            session['name'] = name
+            expiry = datetime.datetime.utcnow() + datetime.\
+                timedelta(minutes=30)
+            token = jwt.encode({'user': email, 'exp': expiry},
+                               app.config['secretkey'], algorithm='HS256')
+            ret['msg'] = 'Login successful'
+            ret['err'] = 0
+            ret['token'] = token.decode('UTF-8')
             return render_template('admin/admin.html', session=session)
         else:
-            return render_template('admin/admin_login.html', session=session)
-            # return 'login failed'
-
+            templateData = {'title': 'singin page'}
+            # Login Failed!
+            return render_template('/admin.html', **templateData)
+            # return "LOgin faild"
+            ret['msg'] = 'Login Failed'
+            ret['err'] = 1
 
     except Exception as exp:
         ret['msg'] = '%s' % exp
         ret['err'] = 1
         print(traceback.format_exc())
         # return jsonify(ret)
-
+        return render_template('admin/admin_login.html', session=session)
 
 
 #############################################
@@ -359,10 +359,7 @@ def clearsession():
 
 @app.route('/clear1')
 def clearsession1():
-<<<<<<< HEAD
-=======
     session.clear()
->>>>>>> 2a3ed7aefbabcda0eb93be9a6466c5f47a6122f7
     return render_template('admin/admin_login.html', session=session)
 
 
@@ -383,8 +380,20 @@ def user_home():
 
 @app.route('/user/playgame')
 def playgame():
-    templateData = {'title': 'playgame'}
-    return render_template("user/game.html", session=session)
+    get_game = mdb.get_user_game()
+    ret = []
+    item = {}
+    for game in get_game:
+        item['eyes'] = game['eyes']
+        # item['timestamp'] = game['timestamp']
+        item['pic'] = game['pic']
+        item['_id'] = game['_id']
+        item['ball'] = game['ball']
+
+        ret.append(item)
+    return JSONEncoder().encode({'game': ret})
+    # templateData = {'title': 'playgame', 'game': get_game}
+    # return render_template("user/game.html", session=session, **templateData)
 
 
 @app.route('/user/game_result')

@@ -2,17 +2,22 @@
 {% block title %}Game saved Page{% endblock %}
 {% block head %}
   {{ super() }}
-  <style type="text/css">
-    .important { color: #336699; }
-  </style>
 {% endblock %}
 {% block content %}
+    {% if session['name'] %}
 
+    {% else %} <p style="color: red;">Please login first...</p>
+
+    {% endif %}
+  <!--div class="container">
+      <!--div class="row">
+          <div class="col-sm-12"-->
+             <div class="jumbotron text-center">
+                 <div id="signup" class="span3 well well-large offset4">
 
 <p class="important">
 
       --- GAME ADDED SUCCESSFULLY ---
 
-
-</p>
+</p></div></div>
 {% endblock %}

@@ -1,56 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>SPOT THE BALL</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="{{url_for('static', filename='create_game.js')}}"></script>
+{% extends "admin/admin_base.html" %}
+{% block title %}Admin page{% endblock %}
+{% block head %}
+  {{ super() }}
 
-</head>
-<body>
+{% endblock %}
+{% block content %}
+    {% if session['name'] %}
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">SPOT THE BALL</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
+    {% else %} <p style="color: red;">Please login first...</p>
 
-            <ul class="nav navbar-nav">
-        <li><a href="/admin/create_game">CREATE GAME</a></li>
-        <li><a href="/admin/game_result">GAME RESULT</a></li>
-        <li><a href="/admin/work">HOW IT WORKS</a></li>
-      </ul>
-           <ul class="nav navbar-nav navbar-right">
+    {% endif %}
 
-            <li><a href="{{ url_for('clearsession1') }}"><span class="glyphicon glyphicon-log-out">&nbsp;</span>Logout</a></li>
-        </ul>
-    </div>
-  </div>
-</nav>
+  <!--div class="container">
+      <!--div class="row">
+          <div class="col-sm-12"-->
+             <div class="jumbotron text-center">
+                 <div id="signup" class="span3 well well-large offset4">
 
-<div class="container">
-  <div class="row">
-
-    <div class="col-sm-12">
-
-<div class="jumbotron text-center">
+<p class="important">
 <img id="bg" width="0" height="" src="{{ imgGame }}">
 <img id="ball" width="0" height="0" src="../static/images/ball.png" alt="Ball">
 
 <canvas id="myCanvas" width="1050" height="660">
 </canvas>
 
-</div>
-    </div></div></div>
+
 
 <form action="/add_game" method="post" enctype=multipart/form-data>
         <center><table>
@@ -67,8 +41,6 @@
 
 
                     <input type="hidden" name="bgImg" value="{{ imgGame }}">
-
-=======
 
                     <input type="text" id="x1" name="x1" size="10" onclick="setSelectedItem('EYE', 1)" oninput="handleTextChanged('EYE', 1)" required="">
                     <input type="text" id ="y1" name="y1" size="10" onclick="setSelectedItem('EYE', 1)"  oninput="handleTextChanged('EYE', 1)" required="">
@@ -118,5 +90,6 @@
         </form>
 <br>
 <span id="tip">Tip: Some quick help will be shown here.</span>
-</body>
-</html>
+</p></div></div>
+{% endblock %}
+

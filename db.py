@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #
 # Database manager for handling transactions with mongodb
 #
@@ -58,6 +57,13 @@ class Mdb:
 
         return ret
 
+    def get_user_game(self):
+        collection = self.db['game']
+        result = collection.find().skip(self.db.game.count()-1)
+        ret = []
+        for data in result:
+            ret.append(data)
+        return ret
 
 ###########################################
 #          Add User in database           #
@@ -78,6 +84,23 @@ class Mdb:
 
 
 ###########################################
+#          Add User in database           #
+###########################################
+    def add_admin(self, email, password):
+        try:
+            rec = {
+                'email': email,
+                'password': password
+            }
+            self.db.admin.insert(rec)
+
+
+        except Exception as exp:
+            print "login() :: Got exception: %s", exp
+            print(traceback.format_exc())
+
+
+###########################################
 #          check User in database         #
 ###########################################
     def user_exists(self, email, password):
@@ -91,6 +114,19 @@ class Mdb:
         """
         return self.db.user.find({'email': email,
                                   'password': password}).count() > 0
+
+    def admin_exists(self, email, password):
+        """
+        function checks if a user with given email and password
+        exists in database
+        :param email: email of the user
+        :param password: password of the user
+        :return: True, if user exists,
+                 False, otherwise
+        """
+        return self.db.admin.find({'email': email,
+                                  'password': password}).count() > 0
+
 
 ###########################################
 #              save ball position         #
@@ -150,13 +186,14 @@ class Mdb:
                 print 'password in db class', password
         return password
 
+
 if __name__ == "__main__":
     # quick test connecting to localdb
     mdb = Mdb()
+    mdb.get_user_game()
+    # mdb.add_admin('tom@gmail.com', '123')
     # mdb.add_game('56', '65', '789', '56', '98',
     # '123', '68', '57', '10', '11')
     # mdb.save_ball_position('1', '22', '33')
     # mdb.get_ball_position('1')
-    mdb.get_password('tom@gmail.com')
-=======
->>>>>>> 2a3ed7aefbabcda0eb93be9a6466c5f47a6122f7
+    # mdb.get_password('tom@gmail.com')

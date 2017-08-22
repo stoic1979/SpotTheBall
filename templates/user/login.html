@@ -1,5 +1,5 @@
 {% extends "user/user_base.html" %}
-{% block title %}Work Page{% endblock %}
+{% block title %}Login Page{% endblock %}
 {% block head %}
   {{ super() }}
 
@@ -7,33 +7,14 @@
 {% block content %}
 
 
-<<<<<<< HEAD
+<!--div class="container"><div class="row"-->
+<!--<div class="col-sm-12">-->
+<div class="jumbotron text-center">
+<div id="signup" class="span3 well well-large offset4">
 <p class="important">
-<br><br>
-=======
-        <li><a href="/user/playgame">PLAY GAME</a></li>
-        <li><a href="/user/game_result">GAME RESULT</a></li>
-        <li><a href="/user/work">HOW IT WORKS</a></li>
-      </ul>
-  <ul class="nav navbar-nav navbar-right">
-            {% if session['name'] %}
-            <li><a href="{{ url_for('clearsession') }}"><span class="glyphicon glyphicon-log-out">&nbsp;</span>Logout</a></li>
-
-        {% else %}        <li><a href="/user/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>{% endif %}
-
-              </ul>
-  </div>
-</nav><br><br><br><br>
-<div class="container">
-  <div class="row">
->>>>>>> 2a3ed7aefbabcda0eb93be9a6466c5f47a6122f7
-
-  <h3>HOW IT WORKS</h3>
-
 
         <center>
-        <h4>Login your account</h4><br>
+        <h4>Login your account</h4><br><br><br><br><br><br><br><br><br>
         <form class="form" action="/login" method="post">
             <table>
             <tr>
@@ -54,6 +35,6 @@
             </table>
         </form>
         </center>
-<br><br>
-</p>
+<br><br><br><br><br><br>
+</p></div></div>
 {% endblock %}

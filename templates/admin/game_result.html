@@ -2,48 +2,22 @@
 {% block title %}Game result Page{% endblock %}
 {% block head %}
   {{ super() }}
-  <style type="text/css">
-    .important { color: #336699; }
-  </style>
+
 {% endblock %}
 {% block content %}
+    {% if session['name'] %}
 
+    {% else %} <p style="color: red;">Please login first...</p>
 
+    {% endif %}
+  <!--div class="container">
+      <!--div class="row">
+          <div class="col-sm-12"-->
+             <div class="jumbotron text-center">
+                 <div id="signup" class="span3 well well-large offset4">
 
 <p class="important">
-=======
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">SPOT THE BALL</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-
-            <ul class="nav navbar-nav">
-        <li><a href="/admin/create_game">CREATE GAME</a></li>
-        <li><a href="/admin/game_result">GAME RESULT</a></li>
-        <li><a href="/admin/work">HOW IT WORKS</a></li>
-      </ul>
-           <ul class="nav navbar-nav navbar-right">
-
-            <li><a href="{{ url_for('clearsession1') }}"><span class="glyphicon glyphicon-log-out">&nbsp;</span>Logout</a></li>
-        </ul>
-    </div>
-  </div>
-</nav>
-<div class="container">
-  <div class="row">
-
-    <div class="col-sm-12">
-
-
-
- <center>
+<center>
 
  <table class="table table-bordered">
     <thead>
@@ -124,5 +98,5 @@
 
 
 
-</p>
+</p></div></div>
 {% endblock %}
