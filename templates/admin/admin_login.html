@@ -1,11 +1,16 @@
 {% extends "admin/admin_base.html" %}
 {% block title %}Admin login Page{% endblock %}
+
 {% block head %}
+
   {{ super() }}
+<style>
+    br{line-height:17em;}
+</style>
 
 {% endblock %}
 {% block content %}
-
+ &nbsp;
   <!--div class="container">
       <!--div class="row">
           <div class="col-sm-12"-->
@@ -14,7 +19,7 @@
 
 <p class="important">
  <center>
-    <h4>Admin Login</h4><br><br><br><br><br><br><br>
+    <h4>Admin Login</h4><br>
         <form class="form" action="/admin_login" method="post">
             <table>
                 <tr>
@@ -33,6 +38,6 @@
                 </tr>
             </table>
         </form>
- </center><br><br><br><br><br><br><br><br>
+ </center><br>
 </p></div></div>
 {% endblock %}

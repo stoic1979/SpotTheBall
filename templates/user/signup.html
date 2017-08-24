@@ -2,6 +2,9 @@
 {% block title %}Signup Page{% endblock %}
 {% block head %}
   {{ super() }}
+<style>
+    br{line-height:14em;}
+</style>
 
 {% endblock %}
 {% block content %}
@@ -13,7 +16,7 @@
 <p class="important">
 
         <center>
-        <h4>Sign up for your account</h4><br><br><br><br><br>
+        <h4>Sign up for your account</h4><br>
         <form class="form" action="/signup" method="post">
             <table>
              <tr>
@@ -34,12 +37,17 @@
             </tr>
             <tr>
                 <th></th><th><input class="btn btn-success" type="submit" value="Signup" />
-                <input class="btn btn-reset" type="reset" value="Reset" /><br>
-                Already have an account? <a class="btn" href="/user/login">Login In</a></th>
-                    </tr>
+                <input class="btn btn-reset" type="reset" value="Reset" /></th>
+            </tr>
+                <tr><th></th>
+                    <th>
+                         Already have an account? <a class="btn" href="/user/login">Login In</a>
+                    </th>
+                </tr>
             </table>
         </form>
         </center>
-<br><br><br><br><br><br>
+
+<br>
 </p></div></div>
 {% endblock %}

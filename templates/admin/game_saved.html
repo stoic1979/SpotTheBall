@@ -2,22 +2,26 @@
 {% block title %}Game saved Page{% endblock %}
 {% block head %}
   {{ super() }}
+<style>
+    br{line-height:15em;}
+</style>
+
 {% endblock %}
 {% block content %}
-    {% if session['name'] %}
+    {% if session['name'] %}&nbsp;
 
     {% else %} <p style="color: red;">Please login first...</p>
 
     {% endif %}
   <!--div class="container">
-      <!--div class="row">
+        <!--div class="row">
           <div class="col-sm-12"-->
              <div class="jumbotron text-center">
                  <div id="signup" class="span3 well well-large offset4">
 
-<p class="important">
+<p class="important"><br>
 
       --- GAME ADDED SUCCESSFULLY ---
-
+<br>
 </p></div></div>
 {% endblock %}

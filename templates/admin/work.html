@@ -4,8 +4,9 @@
   {{ super() }}
 
 {% endblock %}
+
 {% block content %}
-    {% if session['name'] %}
+    {% if session['name'] %} &nbsp;
 
     {% else %} <p style="color: red;">Please login first...</p>
 
@@ -16,6 +17,6 @@
              <div class="jumbotron text-center">
                  <div id="signup" class="span3 well well-large offset4">
                      <p class="important">
-                 <iframe src="https://www.youtube.com/embed/rcuB_J2iBbM" width="853" height="480" frameborder="10" allowfullscreen></iframe>
+                 <iframe src="https://www.youtube.com/embed/rcuB_J2iBbM" width="1050" height="620" frameborder="10" allowfullscreen></iframe>
                      </p></div></div>
 {% endblock %}
