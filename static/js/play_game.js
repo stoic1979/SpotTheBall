@@ -40,7 +40,6 @@ var ball = new Point(365, 133);
 ball.width = 80;
 ball.height = 80;
 
-
 //#########################################//
 //                                         //
 //               Mouse position            //
@@ -101,6 +100,8 @@ function drawScene() {
     //                                         //
     //#########################################//
     ctx.drawImage(imgBall, ball.x, ball.y);
+
+    setBallInForm();
 
 }//drawScene
 
@@ -171,7 +172,14 @@ function moveDown() {
     ball.y += 5;
     drawScene();
 }
+function setBallInForm(){
+     var ball_x = document.getElementById("ball_x");
+     ball_x.value = "" + ball.x;
 
+ var ball_y= document.getElementById("ball_y");
+     ball_y.value = "" + ball.y;
+
+}
 //#########################################//
 //                                         //
 //            move ball with key           //

@@ -26,9 +26,10 @@
 
 <script src="{{url_for('static', filename='js/play_game.js')}}"></script>
 
-    <form action="/get_ball_position" method="post">
-    <input type="hidden" value="ball" name="ball_x">
-    <input type="hidden" value="ball" name="ball_y">
+    <form action="/save_user_ball_position" method="post">
+    <input type="hidden" value="{{ game['_id'] }}" id="game_id" name="game_id">
+    <input type="hidden" value="ball" id="ball_x" name="ball_x">
+    <input type="hidden" value="ball" id="ball_y" name="ball_y">
 
     <center><button type="submit" class="btn btn-success">DONE</button></center>
 </form>

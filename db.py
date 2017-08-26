@@ -22,7 +22,8 @@ class Mdb:
 
         print "[Mdb] connected to database :: ", self.db
 
-    def add_game(self, pic, x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6, x7, y7, x8, y8, ball_x, ball_y):
+    def add_game(self, pic, x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6,
+                 x7, y7, x8, y8, ball_x, ball_y):
         try:
             ts = datetime.datetime.utcnow()
             rec = {
@@ -150,6 +151,21 @@ class Mdb:
             print "login() :: Got exception: %s", exp
             print(traceback.format_exc())
 
+    def save_user_ball_position(self, game_id, ball_x, ball_y):
+        try:
+            ts = datetime.datetime.utcnow()
+            rec = {
+                'game_id': game_id,
+                'ball': [
+                    {'x': ball_x, 'y': ball_y}
+                ],
+                'timestamp': ts
+            }
+            self.db.bet.insert(rec)
+        except Exception as exp:
+            print "login() :: Got exception: %s", exp
+            print(traceback.format_exc())
+
 
 ###########################################
 #               get ball position         #
@@ -192,6 +208,14 @@ class Mdb:
                 print 'password in db class', password
         return password
 
+    def get_result(self, game_id):
+        result = self.db.game.find({'game_id': game_id})
+        print "---------------------", result
+        for data in result:
+            print "+++++++++++++++++++++++++++++"
+            print "", data
+
+
 
 if __name__ == "__main__":
     # quick test connecting to localdb
@@ -203,3 +227,4 @@ if __name__ == "__main__":
     # mdb.save_ball_position('1', '22', '33')
     # mdb.get_ball_position('1')
     # mdb.get_password('tom@gmail.com')
+    mdb.get_result("599d5c9fc2ba7031917ce142")

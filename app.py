@@ -191,9 +191,9 @@ def add_game():
 ###########################################
 #                 get game                #
 ###########################################
-@app.route('/save_ball_position')
-def save_ball_position():
-    return mdb.save_ball_position()
+# @app.route('/save_ball_position')
+# def save_ball_position():
+#     return mdb.save_ball_position()
 
 
 ###############################################################################
@@ -398,14 +398,30 @@ def playgame():
     return render_template("user/game.html", session=session, **templateData)
 
 
-@app.route('/get_ball_position', methods=['POST'])
-def get_ball_position():
+@app.route('/save_user_ball_position', methods=['POST'])
+def get_ball_posisave_user_ball_positiontion():
     try:
-        print "+++++++++", request.form
+        game_id = request.form['game_id']
+        ball_x = request.form['ball_x']
+        ball_y = request.form['ball_y']
+        print ' ball-x : %s, ball-y : %s' % (ball_x, ball_y)
+        mdb.save_user_ball_position(game_id, ball_x, ball_y)
     except Exception as exp:
-        print "get_ball_position() :: Got exception: %s" % exp
+        print "save_user_ball_position() :: Got exception: %s" % exp
         print(traceback.format_exc())
     return "hii its done"
+
+
+@app.route('/get_all_pos', methods=['POST'])
+def get_all_pos():
+    try:
+        print "", request.form
+        game_id = request.form['game_id']
+        mdb.get_result()
+    except Exception as exp:
+        print "get_all_pos() :: Got exception: %s" % exp
+        print(traceback.format_exc())
+    return "json"
 
 @app.route('/user/game_result')
 def result1():

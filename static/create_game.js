@@ -52,7 +52,6 @@ function setupGameCreator() {
     canvas.addEventListener("click", onClick, false);
 
 }
-
 function drawScene() {
 
 
