@@ -7,7 +7,6 @@ from config import *
 import traceback
 import datetime
 
-
 class Mdb:
 
     def __init__(self):

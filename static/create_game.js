@@ -144,7 +144,6 @@ function onClick(evt) {
 
     x1.value = "" + x;
     y1.value = "" + y;
-
 	drawScene();
 }
 
