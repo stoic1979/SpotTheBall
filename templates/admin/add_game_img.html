@@ -4,9 +4,10 @@
 {{ super() }}
 <style>
 br {
-  line-height:12em;
+  line-height:7em;
 }
 </style>
+
 {% endblock %}
 {% block content %}
 
@@ -18,11 +19,11 @@ br {
   <!--div class="row">
   <div class="col-sm-12"-->
 
-
+<input type="hidden" value="{{ request.args.get('next', '') }}"/>
     <div class="jumbotron text-center">
         <div id="signup" class="span3 well well-large offset4">
             <p class="important">
-            <h5>ADD IMAGE</h5><br>
+            <h4>ADD IMAGE</h4><br>
             <center>
                 <form action="/admin/create_game" method="post" enctype=multipart/form-data>
                     <table>

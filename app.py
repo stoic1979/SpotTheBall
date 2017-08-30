@@ -11,6 +11,8 @@ from db import Mdb
 import json
 import jsonify
 from bson import ObjectId
+from functools import wraps
+from flask import g, request, redirect, url_for
 from flask_login import LoginManager, login_user, login_required, logout_user,\
     current_user
 
@@ -33,6 +35,27 @@ def sumSessionCounter():
     except KeyError:
         session['counter'] = 1
 
+#
+# def login_required(f):
+#     @wrap(f)
+#     def wrap(*args, **kwargs):
+#         if 'logged_in' in session:
+#             return f(*args, **kwargs)
+#
+#         else:
+#             flash("you need to login first")
+#             return redirect(url_for('admin'))
+#
+#     return wrap
+
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if g.user is None:
+            return redirect(url_for('admin', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
 
 ######################################################
 #                                                    #
@@ -209,6 +232,7 @@ def admin1():
 
 
 @app.route('/admin/home')
+@login_required
 def admin():
     return render_template("admin/admin.html", session=session)
 
@@ -216,11 +240,6 @@ def admin():
 @app.route('/admin/add_game_img')
 def add_game_img():
     return render_template("admin/add_game_img.html", session=session)
-
-
-@app.route('/admin/create_game1111')
-def create_game():
-    return render_template("admin/create_game.html", session=session)
 
 
 @app.route('/admin/game_result')
@@ -287,7 +306,7 @@ def admin_login():
         else:
             templateData = {'title': 'singin page'}
             # Login Failed!
-            return render_template('/admin.html', **templateData)
+            return render_template('admin/admin.html', **templateData)
             # return "Login faild"
             ret['msg'] = 'Login Failed'
             ret['err'] = 1
@@ -377,7 +396,6 @@ def user_home():
     return render_template("user/user.html", session=session)
 
 
-
 @app.route('/admin/get_current_game')
 def get_current_game():
     game = mdb.get_user_game()
@@ -389,6 +407,7 @@ def get_current_game():
     item['ball'] = game['ball']
     print ("item: %s" % item)
     return JSONEncoder().encode({'game': item})
+
 
 @app.route('/user/playgame')
 def playgame():
@@ -409,7 +428,7 @@ def get_ball_posisave_user_ball_positiontion():
     except Exception as exp:
         print "save_user_ball_position() :: Got exception: %s" % exp
         print(traceback.format_exc())
-    return "hii its done"
+    return render_template("user/save_game.html", session=session)
 
 
 @app.route('/get_all_pos', methods=['POST'])

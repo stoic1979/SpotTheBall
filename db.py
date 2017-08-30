@@ -16,7 +16,7 @@ class Mdb:
         #           % (DB_USER, DB_PASS, DB_HOST, DB_PORT, AUTH_DB_NAME)
 
         conn_str = 'mongodb://stbuser:stbpass@ds127531.' \
-                   'mlab.com:27531/spottheball'
+                  'mlab.com:27531/spottheball'
         client = MongoClient(conn_str)
         self.db = client['spottheball']
 
@@ -26,14 +26,12 @@ class Mdb:
                  x7, y7, x8, y8, ball_x, ball_y):
         try:
             ts = datetime.datetime.utcnow()
+
             rec = {
                 'pic': pic,
 
-
                 'eyes': [
                     {'x': x1, 'y': y1},
-
-
                     {'x': x2, 'y': y2},
                     {'x': x3, 'y': y3},
                     {'x': x4, 'y': y4},
@@ -42,6 +40,7 @@ class Mdb:
                     {'x': x7, 'y': y7},
                     {'x': x8, 'y': y8}
                 ],
+
                 'ball': [
                     {'x': ball_x, 'y': ball_y}
                 ],
@@ -221,7 +220,7 @@ if __name__ == "__main__":
     # quick test connecting to localdb
     mdb = Mdb()
     mdb.get_user_game()
-    # mdb.add_admin('tom@gmail.com', '123')
+    mdb.add_admin('tom@gmail.com', '123')
     # mdb.add_game('56', '65', '789', '56', '98',
     # '123', '68', '57', '10', '11')
     # mdb.save_ball_position('1', '22', '33')
