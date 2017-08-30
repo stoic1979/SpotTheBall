@@ -169,6 +169,7 @@ class Mdb:
 #               get ball position         #
 ###########################################
     def get_ball_position(self, game_id):
+         print "========="
         collection = self.db['bet']
         result = collection.find({'game_id': game_id})
         ret = []

@@ -174,7 +174,7 @@ def save_img():
 ###########################################
 @app.route('/add_game', methods=['POST'])
 def add_game():
-
+    print "========="
     ret = {}
     try:
         x1 = request.form['x1']
