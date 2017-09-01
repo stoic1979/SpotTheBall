@@ -2,7 +2,13 @@
 {% block title %}Game result Page{% endblock %}
 {% block head %}
   {{ super() }}
-
+<style>
+    td{
+    text-align: canter;
+    }
+    th{
+    text-align: center;
+</style>
 {% endblock %}
 {% block content %}
     {% if session['name'] %}&nbsp;
@@ -17,85 +23,38 @@
                  <div id="signup" class="span3 well well-large offset4">
 
 <p class="important">
-<center>
-
-
- <table class="table table-bordered">
+ <center>
+     <p style="color:blue; ">GAME RESULTS</p><br>
+     <table class="table table-bordered">
     <thead>
-      <tr>
-        <th>#</th>
-        <th>WINNER TEAM</th>
-        <th>TITLE</th>
-        <th>DATE</th>
-        <th>DETAILS</th>
-      </tr>
+    <tr>
+        <th> Id</th>
+        <th> Timestamp</th>
+        <th> Eyes</th>
+        <th> Pic</th>
+        <th> Ball</th>
+    </tr>
     </thead>
-
-
     <tbody>
-      <tr class="success">
-        <td>1</td>
-        <td>Algeria</td>
-        <td>Algeria vs Cameroon</td>
-        <td>30/04/2014</td>
-        <td><button type="button" class="btn btn-primary">DETAILS</button></td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Ghana</td>
-        <td>Côte d'Ivoire vs Ghana</td>
-        <td>02/05/2014</td>
-        <td><button type="button" class="btn btn-primary">DETAILS</button></td>
-      </tr>
+    <tr>
+     {% for game in games %}
 
-      <tr class="success">
-        <td>3</td>
-        <td>Brazil</td>
-        <td>Nigeria vs Brazil</td>
-        <td>03/05/2014</td>
-        <td><button type="button" class="btn btn-primary">DETAILS</button></td>
-      </tr>
-      <tr >
-        <td>4</td>
-        <td>Algeria</td>
-        <td>Algeria vs Cameroon</td>
-        <td>04/05/2014</td>
-        <td><button type="button" class="btn btn-primary">DETAILS</button></td>
-      </tr>
-            <tr class="success">
-        <td>5</td>
-        <td>Ghana</td>
-        <td>Côte d'Ivoire vs Ghana</td>
-        <td>08/05/2014</td>
-        <td><button type="button" class="btn btn-primary">DETAILS</button></td>
-      </tr>
-            <tr >
-        <td>6</td>
-        <td>Nigeria</td>
-        <td> Brazil vs Nigeria</td>
-        <td>10/05/2014</td>
-        <td><button type="button" class="btn btn-primary">DETAILS</button></td>
-      </tr>
-            <tr class="success">
-        <td>7</td>
-        <td>Italy</td>
-        <td>USA vs Italy</td>
-        <td>11/05/2014</td>
-        <td><button type="button" class="btn btn-primary">DETAILS</button></td>
-      </tr>
-            <tr >
-        <td>8</td>
-        <td>Côte d'Ivoire</td>
-        <td>Côte d'Ivoire vs Ghana</td>
-        <td>12/05/2014</td>
-        <td>
-  <button type="button" class="btn btn-primary">DETAILS</button></td>
-      </tr>
+        <td>{{ game._id }}</td>
+        <td>{{ game.timestamp }}</td>
+        <td>{{ game.eyes }}</td>
+        <td>{{ game.pic }}</td>
+        <td>{{ game.ball }}</td>
+     </tr>
+     </tbody>
+
+     {% endfor %}<br>
 
 
-    </tbody>
-  </table>
-</center>
+
+     </table>
+ </center>
+
+
 
 </p></div></div>
 {% endblock %}

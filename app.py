@@ -57,6 +57,7 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+
 ######################################################
 #                                                    #
 # Note: _id of mongodb collection was not getting    #
@@ -174,7 +175,6 @@ def save_img():
 ###########################################
 @app.route('/add_game', methods=['POST'])
 def add_game():
-    print "========="
     ret = {}
     try:
         x1 = request.form['x1']
@@ -199,8 +199,8 @@ def add_game():
 
         bg_img = request.form['bgImg']
 
-        mdb.add_game(bg_img, x1, y1, x2, y2,
-                     x3, y3, x4, y4, x5, y5, x6, y6, x7, y7, x8, y8, ball_x, ball_y)
+        mdb.add_game(bg_img, x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6,
+                     x7, y7, x8, y8, ball_x, ball_y)
         ret['error'] = 0
         ret['msg'] = 'Game is stored successfully'
     except Exception as exp:
@@ -242,10 +242,14 @@ def add_game_img():
     return render_template("admin/add_game_img.html", session=session)
 
 
-@app.route('/admin/game_result')
-def result():
-    templateData = {'title': 'game result'}
-    return render_template("admin/game_result.html", session=session)
+#############################################
+#                GET SURVEY                 #
+#############################################
+@app.route("/admin/game_result", methods=['GET'])
+def get_games_result():
+    games = mdb.get_game()
+    templateData = {'title': 'Game Result', 'games': games}
+    return render_template("admin/game_result.html", **templateData)
 
 
 @app.route('/admin/work')
@@ -441,6 +445,7 @@ def get_all_pos():
         print "get_all_pos() :: Got exception: %s" % exp
         print(traceback.format_exc())
     return "json"
+
 
 @app.route('/user/game_result')
 def result1():

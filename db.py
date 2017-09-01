@@ -3,9 +3,11 @@
 #
 
 from pymongo import MongoClient
+from bson import ObjectId
 from config import *
 import traceback
 import datetime
+
 
 class Mdb:
 
@@ -24,7 +26,7 @@ class Mdb:
     def add_game(self, pic, x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6,
                  x7, y7, x8, y8, ball_x, ball_y):
         try:
-            ts = datetime.datetime.utcnow()
+            ts = datetime.datetime.now().strftime("%d-%m-%y, %H:%M:%S")
 
             rec = {
                 'pic': pic,
@@ -62,6 +64,12 @@ class Mdb:
             ret.append(data)
 
         return ret
+
+    def get_survey(self, _id):
+        collection = self.db["survey"]
+        result = collection.find({'_id': ObjectId(_id)})
+        for data in result:
+            return data
 
     def get_user_game(self):
         collection = self.db['game']
@@ -213,8 +221,6 @@ class Mdb:
         for data in result:
             print "+++++++++++++++++++++++++++++"
             print "", data
-
-
 
 if __name__ == "__main__":
     # quick test connecting to localdb
