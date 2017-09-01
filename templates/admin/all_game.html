@@ -1,17 +1,13 @@
 {% extends "admin/admin_base.html" %}
-{% block title %}Game result Page{% endblock %}
+{% block title %}Games Page{% endblock %}
 {% block head %}
   {{ super() }}
 <style>
-    td
-    {
-    text-align: center;
+    td{
+    text-align: canter;
     }
-
-    th
-    {
+    th{
     text-align: center;
-    }
 </style>
 {% endblock %}
 {% block content %}
@@ -33,21 +29,21 @@
     <thead>
     <tr>
         <th> Id</th>
-        <th> User Name</th>
-        <th> Game Id</th>
-        <th> Ball</th>
         <th> Timestamp</th>
+        <th> Eyes</th>
+        <th> Pic</th>
+        <th> Ball</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-     {% for bet in bets %}
+     {% for game in games %}
 
-        <td>{{ bet._id }}</td>
-        <td>{{ bet.user }}</td>
-        <td>{{ bet.game_id }}</td>
-        <td>{{ bet.ball }}</td>
-        <td>{{ bet.timestamp }}</td>
+        <td>{{ game._id }}</td>
+        <td>{{ game.timestamp }}</td>
+        <td>{{ game.eyes }}</td>
+        <td>{{ game.pic }}</td>
+        <td>{{ game.ball }}</td>
      </tr>
      </tbody>
 

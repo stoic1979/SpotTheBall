@@ -8,7 +8,6 @@ from config import *
 import traceback
 import datetime
 
-
 class Mdb:
 
     def __init__(self):
@@ -65,9 +64,20 @@ class Mdb:
 
         return ret
 
+    def get_bet(self):
+        collection = self.db["bet"]
+        result = collection.find({})
+
+        ret = []
+        for data in result:
+            # print "<<=====got the data====>> :: %s" % data
+            ret.append(data)
+
+        return ret
+
     def get_survey(self, _id):
         collection = self.db["survey"]
-        result = collection.find({'_id': ObjectId(_id)})
+        result = collection.find( { '_id': ObjectId(_id) } )
         for data in result:
             return data
 
@@ -157,11 +167,12 @@ class Mdb:
             print "login() :: Got exception: %s", exp
             print(traceback.format_exc())
 
-    def save_user_ball_position(self, game_id, ball_x, ball_y):
+    def save_user_ball_position(self, game_id, user, ball_x, ball_y):
         try:
             ts = datetime.datetime.utcnow()
             rec = {
                 'game_id': game_id,
+                'user': user,
                 'ball': [
                     {'x': ball_x, 'y': ball_y}
                 ],
@@ -221,6 +232,8 @@ class Mdb:
         for data in result:
             print "+++++++++++++++++++++++++++++"
             print "", data
+
+
 
 if __name__ == "__main__":
     # quick test connecting to localdb

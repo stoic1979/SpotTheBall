@@ -18,6 +18,10 @@
                  <div id="signup" class="span3 well well-large offset4">
 
 <p class="important">
+
+    {% if session['name'] %}<br><br>
+
+    {% else %}
  <center>
     <h4>Admin Login</h4><br>
         <form class="form" action="/admin_login" method="post">
@@ -41,5 +45,8 @@
             </table>
         </form>
  </center><br>
+
+
+    {% endif %}
 </p></div></div>
 {% endblock %}

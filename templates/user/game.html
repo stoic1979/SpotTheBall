@@ -27,6 +27,7 @@
 
     <form action="/save_user_ball_position" method="post">
     <input type="hidden" value="{{ game['_id'] }}" id="game_id" name="game_id">
+    <input type="hidden" value="{{session['name']}}" name="user">
     <input type="hidden" value="ball" id="ball_x" name="ball_x">
     <input type="hidden" value="ball" id="ball_y" name="ball_y">
 

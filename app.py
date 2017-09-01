@@ -243,13 +243,23 @@ def add_game_img():
 
 
 #############################################
-#                GET SURVEY                 #
+#                GET GAME RESULT            #
 #############################################
 @app.route("/admin/game_result", methods=['GET'])
 def get_games_result():
-    games = mdb.get_game()
-    templateData = {'title': 'Game Result', 'games': games}
+    bets = mdb.get_bet()
+    templateData = {'title': 'Game Result', 'bets': bets}
     return render_template("admin/game_result.html", **templateData)
+
+
+#############################################
+#                GET ALL GAME               #
+#############################################
+@app.route("/admin/all_game", methods=['GET'])
+def get_games():
+    games = mdb.get_game()
+    templateData = {'title': 'All Game', 'games': games}
+    return render_template("admin/all_game.html", **templateData)
 
 
 @app.route('/admin/work')
@@ -425,10 +435,11 @@ def playgame():
 def get_ball_posisave_user_ball_positiontion():
     try:
         game_id = request.form['game_id']
+        user = request.form['user']
         ball_x = request.form['ball_x']
         ball_y = request.form['ball_y']
         print ' ball-x : %s, ball-y : %s' % (ball_x, ball_y)
-        mdb.save_user_ball_position(game_id, ball_x, ball_y)
+        mdb.save_user_ball_position(game_id, user, ball_x, ball_y)
     except Exception as exp:
         print "save_user_ball_position() :: Got exception: %s" % exp
         print(traceback.format_exc())
