@@ -105,7 +105,8 @@ function drawScene() {
 			ctx.strokeStyle="#000";
 		}
 
-		ctx.rect(eye.x-5, eye.y-5, 10, 10);
+        // dont remove this, we may need to draw rect in future
+		// ctx.rect(eye.x-5, eye.y-5, 10, 10);
         //ctx.stroke();
 
         ctx.moveTo(eye.x, eye.y);

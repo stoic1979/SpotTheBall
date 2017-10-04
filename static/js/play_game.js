@@ -84,8 +84,8 @@ function drawScene() {
     var eyes = currentGame.eyes;
     for(var i=0; i < eyes.length; i++) {
         var eye = eyes[i];
-        ctx.rect(eye.x, eye.y, 2, 2);
-        ctx.stroke();
+        //ctx.rect(eye.x, eye.y, 2, 2);
+        //ctx.stroke();
 
         ctx.moveTo(eye.x, eye.y);
         ctx.lineTo(ball.x + ball.width/2, ball.y + ball.height/2);
