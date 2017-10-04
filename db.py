@@ -59,7 +59,6 @@ class Mdb:
 
         ret = []
         for data in result:
-            # print "<<=====got the data====>> :: %s" % data
             ret.append(data)
 
         return ret
@@ -70,16 +69,15 @@ class Mdb:
 
         ret = []
         for data in result:
-            # print "<<=====got the data====>> :: %s" % data
             ret.append(data)
 
         return ret
-
-    def get_survey(self, _id):
-        collection = self.db["survey"]
-        result = collection.find( { '_id': ObjectId(_id) } )
-        for data in result:
-            return data
+    #
+    # def get_survey(self, _id):
+    #     collection = self.db["survey"]
+    #     result = collection.find( { '_id': ObjectId(_id) } )
+    #     for data in result:
+    #         return data
 
     def get_user_game(self):
         collection = self.db['game']
@@ -117,7 +115,6 @@ class Mdb:
                 'password': password
             }
             self.db.admin.insert(rec)
-
         except Exception as exp:
             print "login() :: Got exception: %s", exp
             print(traceback.format_exc())
@@ -188,7 +185,7 @@ class Mdb:
 #               get ball position         #
 ###########################################
     def get_ball_position(self, game_id):
-        print "========="
+
         collection = self.db['bet']
         result = collection.find({'game_id': game_id})
         ret = []
@@ -196,8 +193,6 @@ class Mdb:
         for data in result:
             item['game_id'] = data['_id']
             item['ball'] = data['ball']
-            print 'id: ', item['game_id']
-            print 'ball: ', item['ball']
             ret.append(item)
         # return JSONEncoder().encode({'ball position': ret})
             return ret
@@ -209,7 +204,6 @@ class Mdb:
         if result:
             for data in result:
                 name = data['name']
-                print '', name
                 email = data['email']
         return name
 
@@ -219,18 +213,13 @@ class Mdb:
         password = ''
         if result:
             for data in result:
-                print '', data
                 name = data['username']
-                print '', name
                 password = data['password']
-                print 'password in db class', password
         return password
 
     def get_result(self, game_id):
         result = self.db.game.find({'game_id': game_id})
-        print "---------------------", result
         for data in result:
-            print "+++++++++++++++++++++++++++++"
             print "", data
 
 

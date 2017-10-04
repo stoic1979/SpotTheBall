@@ -212,6 +212,12 @@ def add_game():
 
 
 ###########################################
+#            magnifying tool              #
+###########################################
+@app.route('/magnify')
+def magnifying():
+    return render_template("index.html", session=session)
+###########################################
 #                 get game                #
 ###########################################
 # @app.route('/save_ball_position')
@@ -419,7 +425,6 @@ def get_current_game():
     item['pic'] = game['pic']
     item['_id'] = game['_id']
     item['ball'] = game['ball']
-    print ("item: %s" % item)
     return JSONEncoder().encode({'game': item})
 
 
@@ -438,7 +443,6 @@ def get_ball_posisave_user_ball_positiontion():
         user = request.form['user']
         ball_x = request.form['ball_x']
         ball_y = request.form['ball_y']
-        print ' ball-x : %s, ball-y : %s' % (ball_x, ball_y)
         mdb.save_user_ball_position(game_id, user, ball_x, ball_y)
     except Exception as exp:
         print "save_user_ball_position() :: Got exception: %s" % exp
@@ -449,7 +453,6 @@ def get_ball_posisave_user_ball_positiontion():
 @app.route('/get_all_pos', methods=['POST'])
 def get_all_pos():
     try:
-        print "", request.form
         game_id = request.form['game_id']
         mdb.get_result()
     except Exception as exp:
