@@ -1,31 +1,24 @@
 {% extends "admin/admin_base.html" %}
-{% block title %}Admin page{% endblock %}
-{% block head %}
-  {{ super() }}
-<style>
+{% block title %}Admin login Page{% endblock %}
 
-br {
-  line-height:21em;
-}
-</style>
+{% block head %}
+
+  {{ super() }}
 
 {% endblock %}
 {% block content %}
-    {% if session['name'] %}Welcome :&emsp;{{session['name']}}
-
-    {% else %} <p style="color: red;">Please login first...</p>
-
-    {% endif %}
-
-  <!--div class="container">
-      <!--div class="row">
-          <div class="col-sm-12"-->
-
+ &nbsp;
 <div class="jumbotron text-center">
 <div id="signup" class="span3 well well-large offset4">
-<p class="important"><br>
 
-</p>
+<p class="important">
+    {% if session['name'] %}<br>
+        <p style="color:green">welcome {{session['name']}}</p><br>
 
-</div></div>
+      {% else %}
+
+  {% include 'admin/session.html' %}
+  {% endif %}
+
+</p></div></div>
 {% endblock %}

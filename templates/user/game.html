@@ -7,9 +7,6 @@
 {% block content %}
     {% if session['name'] %}
 
-    {% else %} <p style="color: red;">Please login first...</p>
-
-    {% endif %}
 
 <div class="jumbotron text-center">
 <div id="signup" class="span3 well well-large offset4">
@@ -34,6 +31,10 @@
     <center><button type="submit" class="btn btn-success">DONE</button></center>
 </form>
 
+      {% else %}
+
+  {% include 'user/session.html' %}
+  {% endif %}
 
 </p></div>
 </div>

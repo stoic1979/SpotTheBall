@@ -21,7 +21,7 @@
 <p class="important">
     {% if session['name'] %}
  <center>
-     <p style="color:blue; ">GAME RESULTS</p><br>
+     <p style="color:blue; ">GAME WINNER</p><br>
      <table class="table table-bordered">
     <thead>
     <tr>
@@ -34,7 +34,7 @@
     </thead>
     <tbody>
     <tr>
-     {% for bet in bets %}
+     {% for bet in games %}
 
         <td>{{ bet._id }}</td>
         <td>{{ bet.user }}</td>

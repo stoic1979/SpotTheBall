@@ -8,6 +8,8 @@ import jwt
 import datetime
 from werkzeug.utils import secure_filename
 from db import Mdb
+import flask
+import flask_login
 import json
 import jsonify
 from bson import ObjectId
@@ -35,18 +37,18 @@ def sumSessionCounter():
     except KeyError:
         session['counter'] = 1
 
-#
-# def login_required(f):
-#     @wrap(f)
-#     def wrap(*args, **kwargs):
-#         if 'logged_in' in session:
-#             return f(*args, **kwargs)
-#
-#         else:
-#             flash("you need to login first")
-#             return redirect(url_for('admin'))
-#
-#     return wrap
+
+#############################################
+#                                           #
+#              WORKING  SESSION             #
+#                                           #
+#############################################
+@app.before_request
+def before_request():
+    flask.session.permanent = True
+    app.permanent_session_lifetime = datetime.timedelta(minutes=30)
+    flask.session.modified = True
+    flask.g.user = flask_login.current_user
 
 
 def login_required(f):
@@ -77,12 +79,7 @@ login_manager.init_app(app)
 
 @login_manager.unauthorized_handler
 def unauthorized_callback():
-    return redirect('/admin_login/')
-
-
-@app.route('/admin')
-def home():
-    return render_template("admin/admin_login.html", session=session)
+    return redirect('/')
 
 
 #########################################
@@ -118,19 +115,58 @@ def token_required(f):
     return decoated
 
 
-###################################################
-#                                                 #
-# specify the path here to server uploaded images #
-#                                                 #
-###################################################
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+###############################################################################
+#                                                                             #
+#                                                                             #
+#                                 ADMIN PANNEL                                #
+#                                                                             #
+#                                                                             #
+###############################################################################
+@app.route('/admin')
+def admin():
+    templateData = {'title': 'admin'}
+    return render_template("admin/admin.html", **templateData)
 
 
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+##############################################################################
+#                                                                            #
+#                                  LOGIN ADMIN                               #
+#                                                                            #
+##############################################################################
+@app.route('/admin_login', methods=['POST'])
+def admin_login():
+    ret = {'err': 0}
+    try:
+
+        sumSessionCounter()
+        email = request.form['email']
+        password = request.form['password']
+
+        if mdb.admin_exists(email, password):
+            name = mdb.get_name(email)
+            session['name'] = name
+            expiry = datetime.datetime.utcnow() + datetime.\
+                timedelta(minutes=30)
+            token = jwt.encode({'user': email, 'exp': expiry},
+                               app.config['secretkey'], algorithm='HS256')
+            ret['msg'] = 'Login successful'
+            ret['err'] = 0
+            ret['token'] = token.decode('UTF-8')
+            return render_template('admin/admin.html', session=session)
+        else:
+            templateData = {'title': 'singin page'}
+            # Login Failed!
+            return render_template('admin/admin.html', **templateData)
+            # return "Login faild"
+            ret['msg'] = 'Login Failed'
+            ret['err'] = 1
+
+    except Exception as exp:
+        ret['msg'] = '%s' % exp
+        ret['err'] = 1
+        print(traceback.format_exc())
+        # return jsonify(ret)
+        return render_template('admin/admin.html', session=session)
 
 
 @app.route('/admin/create_game', methods=['POST'])
@@ -144,8 +180,6 @@ def save_img():
 
         filename = ""
 
-        # if user does not select file, browser also
-        # submit a empty part without filename
         if file.filename == '':
             flash('No selected file')
             return redirect(request.url)
@@ -168,6 +202,21 @@ def save_img():
         ret['msg'] = exp
         print(traceback.format_exc())
     return json.dumps(ret)
+
+
+###################################################
+#                                                 #
+# specify the path here to server uploaded images #
+#                                                 #
+###################################################
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 ###########################################
@@ -211,41 +260,10 @@ def add_game():
     return render_template('admin/game_saved.html', **tmpl_data)
 
 
-###########################################
-#            magnifying tool              #
-###########################################
-@app.route('/magnify')
-def magnifying():
-    return render_template("index.html", session=session)
-###########################################
-#                 get game                #
-###########################################
-# @app.route('/save_ball_position')
-# def save_ball_position():
-#     return mdb.save_ball_position()
-
-
-###############################################################################
-#                                                                             #
-#                                                                             #
-#                                 ADMIN PANNEL                                #
-#                                                                             #
-#                                                                             #
-###############################################################################
-@app.route('/admin_login/')
-def admin1():
-    return render_template("admin/admin_login.html", session=session)
-
-
-@app.route('/admin/home')
-@login_required
-def admin():
-    return render_template("admin/admin.html", session=session)
-
-
 @app.route('/admin/add_game_img')
 def add_game_img():
-    return render_template("admin/add_game_img.html", session=session)
+    templateData = {'title': 'Game '}
+    return render_template("admin/add_game_img.html", **templateData)
 
 
 #############################################
@@ -268,9 +286,11 @@ def get_games():
     return render_template("admin/all_game.html", **templateData)
 
 
-@app.route('/admin/work')
-def work():
-    return render_template("admin/work.html", session=session)
+@app.route('/admin/winner')
+def winner():
+    games = mdb.get_winner()
+    templateData = {'title': 'winner', 'games': games}
+    return render_template("admin/winner.html", **templateData)
 
 
 ###############################################################################
@@ -298,45 +318,6 @@ def add_user():
         print('add_user() :: Got exception: %s' % exp)
         print(traceback.format_exc())
     return render_template('/user/login.html', session=session)
-
-
-#############################################
-#                 LOGIN ADMIN               #
-#############################################
-@app.route('/admin_login', methods=['POST'])
-def admin_login():
-    ret = {'err': 0}
-    try:
-
-        sumSessionCounter()
-        email = request.form['email']
-        password = request.form['password']
-
-        if mdb.admin_exists(email, password):
-            name = mdb.get_name(email)
-            session['name'] = name
-            expiry = datetime.datetime.utcnow() + datetime.\
-                timedelta(minutes=30)
-            token = jwt.encode({'user': email, 'exp': expiry},
-                               app.config['secretkey'], algorithm='HS256')
-            ret['msg'] = 'Login successful'
-            ret['err'] = 0
-            ret['token'] = token.decode('UTF-8')
-            return render_template('admin/admin.html', session=session)
-        else:
-            templateData = {'title': 'singin page'}
-            # Login Failed!
-            return render_template('admin/admin.html', **templateData)
-            # return "Login faild"
-            ret['msg'] = 'Login Failed'
-            ret['err'] = 1
-
-    except Exception as exp:
-        ret['msg'] = '%s' % exp
-        ret['err'] = 1
-        print(traceback.format_exc())
-        # return jsonify(ret)
-        return render_template('admin/admin_login.html', session=session)
 
 
 #############################################
@@ -400,7 +381,7 @@ def clearsession():
 @app.route('/clear1')
 def clearsession1():
     session.clear()
-    return render_template('admin/admin_login.html', session=session)
+    return render_template('admin/admin.html', session=session)
 
 
 #############################################
@@ -443,9 +424,43 @@ def get_ball_posisave_user_ball_positiontion():
         user = request.form['user']
         ball_x = request.form['ball_x']
         ball_y = request.form['ball_y']
+
+        # ball_x = 365
+        # ball_y = 437
+
+
+        result = mdb.get_user_game()
+        data = result.get("ball", "")
+        # print'============', data
+
+        for i in data:
+            print i
+
+            print "i['x'] db: ", i['x']
+            print "i['y'] db: ", i['y']
+            print"ball_x value", ball_x
+            print"ball_y value", ball_y
+
+            if ball_x == i['x']:
+                # print"====================if_1"
+
+                if ball_y == i['y']:
+                    # print"====================else_1"
+
+                    mdb.save_winner(game_id, user, ball_x, ball_y)
+
+                else:
+                    # print"====================else_2"
+                    pass
+            else:
+                # print"====================else_1"
+                pass
+
         mdb.save_user_ball_position(game_id, user, ball_x, ball_y)
+        return render_template("user/save_game.html", session=session)
+
     except Exception as exp:
-        print "save_user_ball_position() :: Got exception: %s" % exp
+        print "get_ball_posisave_user_ball_positiontion() :: Got exception: %s" % exp
         print(traceback.format_exc())
     return render_template("user/save_game.html", session=session)
 

@@ -10,9 +10,6 @@
 {% block content %}
     {% if session['name'] %}&nbsp;
 
-    {% else %} <p style="color: red;">Please login first...</p>
-
-    {% endif %}
   <!--div class="container">
         <!--div class="row">
           <div class="col-sm-12"-->
@@ -23,5 +20,10 @@
 
       --- GAME RESULT SAVE SUCCESSFULLY ---
 <br>
+
+      {% else %}
+
+  {% include 'user/session.html' %}
+  {% endif %}
 </p></div></div>
 {% endblock %}

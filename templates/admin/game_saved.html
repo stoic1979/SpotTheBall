@@ -8,20 +8,17 @@
 
 {% endblock %}
 {% block content %}
-    {% if session['name'] %}&nbsp;
 
-    {% else %} <p style="color: red;">Please login first...</p>
-
-    {% endif %}
-  <!--div class="container">
-        <!--div class="row">
-          <div class="col-sm-12"-->
              <div class="jumbotron text-center">
                  <div id="signup" class="span3 well well-large offset4">
 
 <p class="important"><br>
-
+{% if session['name'] %}
       --- GAME ADDED SUCCESSFULLY ---
 <br>
+          {% else %}
+
+  {% include 'admin/session.html' %}
+  {% endif %}
 </p></div></div>
 {% endblock %}

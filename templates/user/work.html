@@ -1,20 +1,21 @@
 {% extends "user/user_base.html" %}
-{% block title %}Work Page{% endblock %}
+{% block title %}Working Page{% endblock %}
 {% block head %}
   {{ super() }}
 
 {% endblock %}
+
 {% block content %}
-    {% if session['name'] %}
 
-    {% else %} <p style="color: red;">Please login first...</p>
-
-    {% endif %}
-<!--div class="container"><div class="row"-->
-<!--<div class="col-sm-12">-->
              <div class="jumbotron text-center">
                  <div id="signup" class="span3 well well-large offset4">
                      <p class="important">
+                         {% if session['name'] %}
                  <iframe src="https://www.youtube.com/embed/rcuB_J2iBbM" width="1050" height="620" frameborder="10" allowfullscreen></iframe>
-                     </p></div></div>
+
+                           {% else %}
+
+  {% include 'user/session.html' %}
+  {% endif %}</p></div></div>
 {% endblock %}
+

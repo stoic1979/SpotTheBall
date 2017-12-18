@@ -14,24 +14,16 @@ tab5 { padding-left: 2em; }
 
 {% endblock %}
 {% block content %}
-    {% if session['name'] %} &nbsp;
 
-    {% else %} <p style="color: red;">Please login first...</p>
-
-    {% endif %}
-
-  <!--div class="container">
-      <!--div class="row">
-          <div class="col-sm-12"-->
-             <div class="jumbotron text-center">
-                 <div id="signup" class="span3 well well-large offset4">
+<div class="jumbotron text-center">
+<div id="signup" class="span3 well well-large offset4">
 
 <p class="important">
+    {% if session['name'] %}
 <img id="bg" width="0" height="" src="{{ imgGame }}">
 <img id="ball" width="0" height="0" src="../static/images/ball.png" alt="Ball">
 
-<canvas id="myCanvas" width="1050" height="660">
-</canvas>
+<canvas id="myCanvas" width="1050" height="660"></canvas>
 
 
 
@@ -99,6 +91,13 @@ tab5 { padding-left: 2em; }
         </form>
 <br>
 <span id="tip">Tip: Some quick help will be shown here.</span>
+
+
+     {% else %}
+
+  {% include 'admin/session.html' %}
+  {% endif %}
+
+
 </p></div></div>
 {% endblock %}
-

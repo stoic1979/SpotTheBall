@@ -72,12 +72,17 @@ class Mdb:
             ret.append(data)
 
         return ret
-    #
-    # def get_survey(self, _id):
-    #     collection = self.db["survey"]
-    #     result = collection.find( { '_id': ObjectId(_id) } )
-    #     for data in result:
-    #         return data
+
+    def get_winner(self):
+        collection = self.db["winner"]
+        result = collection.find({})
+
+        ret = []
+        for data in result:
+            ret.append(data)
+
+        return ret
+
 
     def get_user_game(self):
         collection = self.db['game']
@@ -86,6 +91,23 @@ class Mdb:
         for data in result:
             ret = data
         return ret
+
+    def save_winner(self, game_id, user, ball_x, ball_y):
+        try:
+            ts = datetime.datetime.utcnow()
+            rec = {
+                'game_id': game_id,
+                'user': user,
+                'ball': [
+                    {'x': ball_x, 'y': ball_y}
+                ],
+                'timestamp': ts
+            }
+            self.db.winner.insert(rec)
+        except Exception as exp:
+            print "get_ball_posisave_user_ball_positiontion() :: Got exception: %s", exp
+            print(traceback.format_exc())
+
 
 ###########################################
 #          Add User in database           #
